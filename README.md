@@ -3,7 +3,7 @@ Projet Base de donnees multimedia
 
 # Objectif :
 
-## Répertorier l'ensemble des joueurs de l'histoire du Fc Barcelone dans une base de données.
+Répertorier l'ensemble des joueurs de l'histoire du Fc Barcelone dans une base de données.
 Une recherche sur la base renverra des informations sur le joueur en question (photos, vidéos d'actions, texte descriptif sur le joueur → fortement inspiré de wikipédia)
 
 Pour commencer nous mettrons uniquement les joueurs de cette année (2014-2015) puis les 5 dernières années, puis …
