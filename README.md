@@ -10,7 +10,7 @@ Pour commencer nous mettrons uniquement les joueurs de cette année (2014-2015) 
 
 → Pouvoir faire une recherche sur les joueurs et demander par exemple 
 	" Est ce que Messi a joué avec Iniesta ? " 
-La base devra en cas de réponse positive renvoyée le une photo où les deux joueurs se trouve grâce à de la reconnaissance de visage, ou si possible une reconnaissance du nom sur le maillot ...
+La base devra en cas de réponse positive renvoyer une photo où les deux joueurs se trouve grâce à de la reconnaissance de visage, ou si possible une reconnaissance du nom sur le maillot ...
 
 Autre question :
 	" Quels sont les numéros 10 de l'histoire du Fc Barcelone ? "
@@ -27,3 +27,18 @@ Et poser des questions comme : " Quels sont les joueurs qui ont marqués plus d
 
 # Nom de l'équipe : 
 Les Blaugrana
+
+
+# Recherches sur l'état de l'art
+
+Sites visités ayant un rapport plus ou moins direct :
+
+- http://en.wikipedia.org/wiki/List_of_FC_Barcelona_players 
+Répertorie les joueurs (non exhaustif) depuis la création du club en 1899. Donne une bonne base pour notre base,
+mais les informations données sont limitées (années d'activité, buts/séléctions sans plus de précision...)
+
+- www.fcbarcelona.com
+Le site officiel, qui possède quelques statistiques et photos/vidéos désorganisées.
+
+Il n'existe pas (en tout cas pas visible sur Google) de base de données extensive comprenant des photos et vidéos avec 
+reconnaissance
