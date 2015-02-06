@@ -10,7 +10,7 @@ Pour commencer nous mettrons uniquement les joueurs de cette année (2014-2015) 
 
 → Pouvoir faire une recherche sur les joueurs et demander par exemple 
 	" Est ce que Messi a joué avec Iniesta ? " 
-La base devra en cas de réponse positive renvoyée le une photo où les deux joueurs se trouve grâce à de la reconnaissance de visage, ou si possible une reconnaissance du nom sur le maillot ...
+La base devra en cas de réponse positive renvoyer une photo où les deux joueurs se trouve grâce à de la reconnaissance de visage, ou si possible une reconnaissance du nom sur le maillot ...
 
 Autre question :
 	" Quels sont les numéros 10 de l'histoire du Fc Barcelone ? "
