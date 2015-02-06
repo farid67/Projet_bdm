@@ -27,3 +27,18 @@ Et poser des questions comme : " Quels sont les joueurs qui ont marqués plus d
 
 # Nom de l'équipe : 
 Les Blaugrana
+
+
+# Recherches sur l'état de l'art
+
+Sites visités ayant un rapport plus ou moins direct :
+
+- http://en.wikipedia.org/wiki/List_of_FC_Barcelona_players 
+Répertorie les joueurs (non exhaustif) depuis la création du club en 1899. Donne une bonne base pour notre base,
+mais les informations données sont limitées (années d'activité, buts/séléctions sans plus de précision...)
+
+- www.fcbarcelona.com
+Le site officiel, qui possède quelques statistiques et photos/vidéos désorganisées.
+
+Il n'existe pas (en tout cas pas visible sur Google) de base de données extensive comprenant des photos et vidéos avec 
+reconnaissance
