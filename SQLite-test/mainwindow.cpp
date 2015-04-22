@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "db.h"
+#include "ClickableLabel.h"
 #include <QFileDialog>
 #include <QDate>
 #include <iostream>
@@ -24,11 +25,15 @@ MainWindow::MainWindow(QWidget *parent) :
 //       std::cout << "Base de données correctement ouverte" << std::endl;
     if(db_manage->createImageTable())
         std::cout << "table image correctement créée " << std::endl;
+
     // création chaine vide
     file_url = new QString();
 
     // modification de l'année en cours si nécessaire dans l'onglet d'ajout de photo
     ui->setupUi(this);
+
+    ui->Acceuil_label->setPixmap(*(new QPixmap("../Images/acceuil.jpg")));
+
     ui->spinBox->setMaximum(QDate::currentDate().year());
     ui->AnneeSearchSpinBox->setMaximum(QDate::currentDate().year());
     ui->spinBox->setValue(QDate::currentDate().year());
@@ -43,6 +48,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
     picture_date_Select = -1;
 
+    //          Problème pour connecter le clic sur le qlabel avec une fonction
+
+    // le cast de ui->urlSelectLabel de qlabel en ClickableLabel ne fonctionne pas, pour contourner le problème, aller dans
+    // l'interface sous "forms" et faire un clic droit sur le urlSelectLabel, puis promote To -> et enfin vers la classe
+    // ClickableLabel qu'on a créé auparavant
 
 }
 
@@ -50,7 +60,6 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
-
 
 
 void MainWindow::on_pushButton_3_clicked()
@@ -107,13 +116,21 @@ void MainWindow::on_SearchpushButton_clicked()
 {
     player_name_Select = new QString(ui->NameSearchLineEdit->text());
 
-    QStringList *url_select = db_manage->selectImage(picture_date_Select,player_name_Select,player_number_Select);
+    QStringList* url_founded = db_manage->selectImage(picture_date_Select,player_name_Select,player_number_Select);
 
-    if (url_select->size() == 0)
+    if (url_founded->size() == 0)
+    {
         ui->urlSelectLabel->setText("Aucune image ne correspond à votre recherche dans la base de donnée");
+    }
     else
-        ui->urlSelectLabel->setPixmap(url_select->at(0));
+    {
+        ui->urlSelectLabel->url_select = url_founded;
+        // gérer le fait que plusieurs images peuvent correspondre à la requête
+        ui->urlSelectLabel->setPixmap(url_founded->at(0));
+        ui->urlSelectLabel->current_image = 0;
+    }
 }
+
 
 
 // autoriser la recherche si le nom du joueur est entré

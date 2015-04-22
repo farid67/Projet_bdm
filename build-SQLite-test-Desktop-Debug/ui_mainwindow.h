@@ -26,26 +26,20 @@
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
+#include "ClickableLabel.h"
 
 QT_BEGIN_NAMESPACE
 
 class Ui_MainWindow
 {
 public:
-    QAction *actionOnglet_1;
     QWidget *centralWidget;
     QTabWidget *AcceuilOnglet;
     QWidget *tab_5;
-    QWidget *verticalLayoutWidget;
-    QVBoxLayout *verticalLayout;
-    QPushButton *pushButton;
-    QPushButton *pushButton_2;
     QWidget *verticalLayoutWidget_2;
     QVBoxLayout *verticalLayout_3;
-    QSpacerItem *verticalSpacer;
-    QLabel *label_3;
-    QSpacerItem *verticalSpacer_2;
-    QVBoxLayout *verticalLayout_4;
+    QLabel *label_4;
+    QLabel *Acceuil_label;
     QWidget *tab_6;
     QWidget *verticalLayoutWidget_3;
     QVBoxLayout *verticalLayout_6;
@@ -86,7 +80,7 @@ public:
     QLineEdit *NameSearchLineEdit;
     QWidget *verticalLayoutWidget_4;
     QVBoxLayout *verticalLayout_7;
-    QLabel *urlSelectLabel;
+    ClickableLabel *urlSelectLabel;
     QWidget *gridLayoutWidget_5;
     QGridLayout *gridLayout_5;
     QPushButton *pushButton_7;
@@ -94,6 +88,14 @@ public:
     QSpacerItem *horizontalSpacer_4;
     QPushButton *pushButton_5;
     QSpacerItem *horizontalSpacer_5;
+    QWidget *tab;
+    QWidget *gridLayoutWidget_3;
+    QGridLayout *gridLayout_3;
+    QVBoxLayout *verticalLayout_4;
+    QVBoxLayout *verticalLayout;
+    QLabel *label_3;
+    QVBoxLayout *verticalLayout_8;
+    QLabel *label;
     QStatusBar *statusBar;
 
     void setupUi(QMainWindow *MainWindow)
@@ -101,8 +103,6 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
         MainWindow->resize(693, 492);
-        actionOnglet_1 = new QAction(MainWindow);
-        actionOnglet_1->setObjectName(QStringLiteral("actionOnglet_1"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         AcceuilOnglet = new QTabWidget(centralWidget);
@@ -110,69 +110,32 @@ public:
         AcceuilOnglet->setGeometry(QRect(0, 0, 691, 471));
         tab_5 = new QWidget();
         tab_5->setObjectName(QStringLiteral("tab_5"));
-        verticalLayoutWidget = new QWidget(tab_5);
-        verticalLayoutWidget->setObjectName(QStringLiteral("verticalLayoutWidget"));
-        verticalLayoutWidget->setGeometry(QRect(0, 10, 141, 321));
-        verticalLayout = new QVBoxLayout(verticalLayoutWidget);
-        verticalLayout->setSpacing(6);
-        verticalLayout->setContentsMargins(11, 11, 11, 11);
-        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        verticalLayout->setContentsMargins(0, 0, 0, 0);
-        pushButton = new QPushButton(verticalLayoutWidget);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
-
-        verticalLayout->addWidget(pushButton);
-
-        pushButton_2 = new QPushButton(verticalLayoutWidget);
-        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
-
-        verticalLayout->addWidget(pushButton_2);
-
         verticalLayoutWidget_2 = new QWidget(tab_5);
         verticalLayoutWidget_2->setObjectName(QStringLiteral("verticalLayoutWidget_2"));
-        verticalLayoutWidget_2->setGeometry(QRect(142, 10, 541, 421));
+        verticalLayoutWidget_2->setGeometry(QRect(90, 10, 547, 421));
         verticalLayout_3 = new QVBoxLayout(verticalLayoutWidget_2);
         verticalLayout_3->setSpacing(6);
         verticalLayout_3->setContentsMargins(11, 11, 11, 11);
         verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
         verticalLayout_3->setSizeConstraint(QLayout::SetMinimumSize);
         verticalLayout_3->setContentsMargins(0, 0, 0, 0);
-        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Preferred);
-
-        verticalLayout_3->addItem(verticalSpacer);
-
-        label_3 = new QLabel(verticalLayoutWidget_2);
-        label_3->setObjectName(QStringLiteral("label_3"));
-        label_3->setEnabled(false);
-        QSizePolicy sizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(label_3->sizePolicy().hasHeightForWidth());
-        label_3->setSizePolicy(sizePolicy);
-        label_3->setMaximumSize(QSize(530, 100));
+        label_4 = new QLabel(verticalLayoutWidget_2);
+        label_4->setObjectName(QStringLiteral("label_4"));
+        label_4->setMaximumSize(QSize(16777215, 20));
         QFont font;
-        font.setPointSize(14);
         font.setBold(true);
         font.setWeight(75);
-        label_3->setFont(font);
-        label_3->setLayoutDirection(Qt::LeftToRight);
-        label_3->setTextFormat(Qt::AutoText);
-        label_3->setScaledContents(false);
-        label_3->setAlignment(Qt::AlignCenter);
-        label_3->setWordWrap(true);
+        label_4->setFont(font);
+        label_4->setAlignment(Qt::AlignCenter);
+        label_4->setWordWrap(true);
 
-        verticalLayout_3->addWidget(label_3);
+        verticalLayout_3->addWidget(label_4);
 
-        verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Preferred);
+        Acceuil_label = new QLabel(verticalLayoutWidget_2);
+        Acceuil_label->setObjectName(QStringLiteral("Acceuil_label"));
+        Acceuil_label->setAlignment(Qt::AlignCenter);
 
-        verticalLayout_3->addItem(verticalSpacer_2);
-
-        verticalLayout_4 = new QVBoxLayout();
-        verticalLayout_4->setSpacing(6);
-        verticalLayout_4->setObjectName(QStringLiteral("verticalLayout_4"));
-        verticalLayout_4->setSizeConstraint(QLayout::SetFixedSize);
-
-        verticalLayout_3->addLayout(verticalLayout_4);
+        verticalLayout_3->addWidget(Acceuil_label);
 
         AcceuilOnglet->addTab(tab_5, QString());
         tab_6 = new QWidget();
@@ -295,10 +258,7 @@ public:
         label_2->setObjectName(QStringLiteral("label_2"));
         label_2->setEnabled(false);
         label_2->setMaximumSize(QSize(16777215, 20));
-        QFont font2;
-        font2.setBold(true);
-        font2.setWeight(75);
-        label_2->setFont(font2);
+        label_2->setFont(font);
         label_2->setAlignment(Qt::AlignCenter);
 
         verticalLayout_9->addWidget(label_2);
@@ -389,7 +349,7 @@ public:
         label_12->setObjectName(QStringLiteral("label_12"));
         label_12->setEnabled(false);
         label_12->setMaximumSize(QSize(16777215, 20));
-        label_12->setFont(font2);
+        label_12->setFont(font);
         label_12->setAlignment(Qt::AlignCenter);
 
         verticalLayout_15->addWidget(label_12);
@@ -410,9 +370,10 @@ public:
         verticalLayout_7->setContentsMargins(11, 11, 11, 11);
         verticalLayout_7->setObjectName(QStringLiteral("verticalLayout_7"));
         verticalLayout_7->setContentsMargins(0, 0, 0, 0);
-        urlSelectLabel = new QLabel(verticalLayoutWidget_4);
+        urlSelectLabel = new ClickableLabel(verticalLayoutWidget_4);
         urlSelectLabel->setObjectName(QStringLiteral("urlSelectLabel"));
         urlSelectLabel->setEnabled(true);
+        urlSelectLabel->setMouseTracking(true);
         urlSelectLabel->setFrameShape(QFrame::Panel);
         urlSelectLabel->setLineWidth(1);
         urlSelectLabel->setScaledContents(true);
@@ -453,6 +414,68 @@ public:
         gridLayout_5->addItem(horizontalSpacer_5, 0, 0, 1, 1);
 
         AcceuilOnglet->addTab(tab_2, QString());
+        tab = new QWidget();
+        tab->setObjectName(QStringLiteral("tab"));
+        gridLayoutWidget_3 = new QWidget(tab);
+        gridLayoutWidget_3->setObjectName(QStringLiteral("gridLayoutWidget_3"));
+        gridLayoutWidget_3->setGeometry(QRect(80, 30, 541, 351));
+        gridLayout_3 = new QGridLayout(gridLayoutWidget_3);
+        gridLayout_3->setSpacing(6);
+        gridLayout_3->setContentsMargins(11, 11, 11, 11);
+        gridLayout_3->setObjectName(QStringLiteral("gridLayout_3"));
+        gridLayout_3->setContentsMargins(0, 0, 0, 0);
+        verticalLayout_4 = new QVBoxLayout();
+        verticalLayout_4->setSpacing(6);
+        verticalLayout_4->setObjectName(QStringLiteral("verticalLayout_4"));
+        verticalLayout_4->setSizeConstraint(QLayout::SetDefaultConstraint);
+        verticalLayout = new QVBoxLayout();
+        verticalLayout->setSpacing(6);
+        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        label_3 = new QLabel(gridLayoutWidget_3);
+        label_3->setObjectName(QStringLiteral("label_3"));
+        label_3->setEnabled(false);
+        QSizePolicy sizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(label_3->sizePolicy().hasHeightForWidth());
+        label_3->setSizePolicy(sizePolicy);
+        label_3->setMaximumSize(QSize(530, 100));
+        QFont font2;
+        font2.setPointSize(14);
+        font2.setBold(true);
+        font2.setWeight(75);
+        label_3->setFont(font2);
+        label_3->setLayoutDirection(Qt::LeftToRight);
+        label_3->setTextFormat(Qt::AutoText);
+        label_3->setScaledContents(false);
+        label_3->setAlignment(Qt::AlignCenter);
+        label_3->setWordWrap(true);
+
+        verticalLayout->addWidget(label_3);
+
+
+        verticalLayout_4->addLayout(verticalLayout);
+
+
+        gridLayout_3->addLayout(verticalLayout_4, 1, 0, 1, 1);
+
+        verticalLayout_8 = new QVBoxLayout();
+        verticalLayout_8->setSpacing(6);
+        verticalLayout_8->setObjectName(QStringLiteral("verticalLayout_8"));
+        verticalLayout_8->setSizeConstraint(QLayout::SetNoConstraint);
+        label = new QLabel(gridLayoutWidget_3);
+        label->setObjectName(QStringLiteral("label"));
+        label->setFont(font);
+        label->setTextFormat(Qt::PlainText);
+        label->setAlignment(Qt::AlignCenter);
+        label->setWordWrap(true);
+
+        verticalLayout_8->addWidget(label);
+
+
+        gridLayout_3->addLayout(verticalLayout_8, 0, 0, 1, 1);
+
+        AcceuilOnglet->addTab(tab, QString());
         MainWindow->setCentralWidget(centralWidget);
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QStringLiteral("statusBar"));
@@ -460,7 +483,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        AcceuilOnglet->setCurrentIndex(0);
+        AcceuilOnglet->setCurrentIndex(2);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -469,10 +492,8 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
-        actionOnglet_1->setText(QApplication::translate("MainWindow", "Onglet 1", 0));
-        pushButton->setText(QApplication::translate("MainWindow", "Image1", 0));
-        pushButton_2->setText(QApplication::translate("MainWindow", "Image2", 0));
-        label_3->setText(QApplication::translate("MainWindow", "A noter que les cr\303\251ateurs de ce projet ne r\303\251clament aucuns droits sur les photos utilis\303\251es. Pour retrouver les droits relatifs aux photos, se referrer au fichier copyright.txt", 0));
+        label_4->setText(QApplication::translate("MainWindow", "Bienvenue sur la nouvelle application de reconnaissance des joueurs du Fc Barcelone ! ", 0));
+        Acceuil_label->setText(QApplication::translate("MainWindow", "La photo de l'acceuil devrait apparaitre ici...", 0));
         AcceuilOnglet->setTabText(AcceuilOnglet->indexOf(tab_5), QApplication::translate("MainWindow", "Acceuil", 0));
         urlInsertLabel->setText(QApplication::translate("MainWindow", "Aucune image s\303\251l\303\251ctionn\303\251e pour le moment", 0));
         pushButton_3->setText(QApplication::translate("MainWindow", "Click to select Image", 0));
@@ -498,6 +519,13 @@ public:
         pushButton_7->setText(QApplication::translate("MainWindow", "Delete item", 0));
         pushButton_5->setText(QApplication::translate("MainWindow", "Modify item", 0));
         AcceuilOnglet->setTabText(AcceuilOnglet->indexOf(tab_2), QApplication::translate("MainWindow", "Bdd_elements", 0));
+        label_3->setText(QApplication::translate("MainWindow", "A noter que les cr\303\251ateurs de ce projet ne r\303\251clament aucuns droits sur les photos utilis\303\251es. \n"
+" Pour retrouver les droits relatifs aux photos, se referrer au fichier copyright.txt", 0));
+        label->setText(QApplication::translate("MainWindow", "Dev : \n"
+" - MATYSIAK Pierre \n"
+" - OUHMICH Farid \n"
+" Avec la collaboration de Mr. Fabre!", 0));
+        AcceuilOnglet->setTabText(AcceuilOnglet->indexOf(tab), QApplication::translate("MainWindow", "Page", 0));
     } // retranslateUi
 
 };

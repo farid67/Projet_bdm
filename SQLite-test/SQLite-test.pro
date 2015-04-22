@@ -18,9 +18,11 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    db.cpp
+    db.cpp \
+    ClickableLabel.cpp
 
 HEADERS  += mainwindow.h \
-    db.h
+    db.h \
+    ClickableLabel.h
 
 FORMS    += mainwindow.ui

@@ -47,11 +47,15 @@ OBJECTS_DIR   = ./
 
 SOURCES       = ../SQLite-test/main.cpp \
 		../SQLite-test/mainwindow.cpp \
-		../SQLite-test/db.cpp moc_mainwindow.cpp
+		../SQLite-test/db.cpp \
+		../SQLite-test/ClickableLabel.cpp moc_mainwindow.cpp \
+		moc_ClickableLabel.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
 		db.o \
-		moc_mainwindow.o
+		ClickableLabel.o \
+		moc_mainwindow.o \
+		moc_ClickableLabel.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/shell-unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
@@ -345,7 +349,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d .tmp/SQLite-test1.0.0 || mkdir -p .tmp/SQLite-test1.0.0
-	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/SQLite-test1.0.0/ && $(COPY_FILE) --parents ../SQLite-test/mainwindow.h ../SQLite-test/db.h .tmp/SQLite-test1.0.0/ && $(COPY_FILE) --parents ../SQLite-test/main.cpp ../SQLite-test/mainwindow.cpp ../SQLite-test/db.cpp .tmp/SQLite-test1.0.0/ && $(COPY_FILE) --parents ../SQLite-test/mainwindow.ui .tmp/SQLite-test1.0.0/ && (cd `dirname .tmp/SQLite-test1.0.0` && $(TAR) SQLite-test1.0.0.tar SQLite-test1.0.0 && $(COMPRESS) SQLite-test1.0.0.tar) && $(MOVE) `dirname .tmp/SQLite-test1.0.0`/SQLite-test1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/SQLite-test1.0.0
+	$(COPY_FILE) --parents $(SOURCES) $(DIST) .tmp/SQLite-test1.0.0/ && $(COPY_FILE) --parents ../SQLite-test/mainwindow.h ../SQLite-test/db.h ../SQLite-test/ClickableLabel.h .tmp/SQLite-test1.0.0/ && $(COPY_FILE) --parents ../SQLite-test/main.cpp ../SQLite-test/mainwindow.cpp ../SQLite-test/db.cpp ../SQLite-test/ClickableLabel.cpp .tmp/SQLite-test1.0.0/ && $(COPY_FILE) --parents ../SQLite-test/mainwindow.ui .tmp/SQLite-test1.0.0/ && (cd `dirname .tmp/SQLite-test1.0.0` && $(TAR) SQLite-test1.0.0.tar SQLite-test1.0.0 && $(COMPRESS) SQLite-test1.0.0.tar) && $(MOVE) `dirname .tmp/SQLite-test1.0.0`/SQLite-test1.0.0.tar.gz . && $(DEL_FILE) -r .tmp/SQLite-test1.0.0
 
 
 clean:compiler_clean 
@@ -368,9 +372,9 @@ check: first
 
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_header_make_all: moc_mainwindow.cpp
+compiler_moc_header_make_all: moc_mainwindow.cpp moc_ClickableLabel.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp
+	-$(DEL_FILE) moc_mainwindow.cpp moc_ClickableLabel.cpp
 moc_mainwindow.cpp: /usr/include/qt5/QtWidgets/QMainWindow \
 		/usr/include/qt5/QtWidgets/qmainwindow.h \
 		/usr/include/qt5/QtWidgets/qwidget.h \
@@ -483,6 +487,7 @@ moc_mainwindow.cpp: /usr/include/qt5/QtWidgets/QMainWindow \
 		/usr/include/qt5/QtWidgets/qtabwidget.h \
 		/usr/include/qt5/QtGui/qicon.h \
 		../SQLite-test/db.h \
+		/usr/include/qt5/QtCore/QDebug \
 		/usr/include/qt5/QtSql/QSqlQuery \
 		/usr/include/qt5/QtSql/qsqlquery.h \
 		/usr/include/qt5/QtSql/qsql.h \
@@ -497,8 +502,13 @@ moc_mainwindow.cpp: /usr/include/qt5/QtWidgets/QMainWindow \
 		/usr/include/qt5/QtCore/qfileinfo.h \
 		/usr/include/qt5/QtCore/QVariant \
 		/usr/include/qt5/QtCore/QUrl \
+		/usr/include/qt5/QtSql/QSqlRecord \
+		/usr/include/qt5/QtSql/qsqlrecord.h \
 		../SQLite-test/mainwindow.h
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../SQLite-test/mainwindow.h -o moc_mainwindow.cpp
+
+moc_ClickableLabel.cpp: ../SQLite-test/ClickableLabel.h
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) $(INCPATH) -I/usr/include/c++/4.8 -I/usr/include/x86_64-linux-gnu/c++/4.8 -I/usr/include/c++/4.8/backward -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/4.8/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../SQLite-test/ClickableLabel.h -o moc_ClickableLabel.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -519,9 +529,9 @@ compiler_clean: compiler_moc_header_clean compiler_uic_clean
 ####### Compile
 
 main.o: ../SQLite-test/main.cpp ../SQLite-test/db.h \
-		/usr/include/qt5/QtSql/QSqlQuery \
-		/usr/include/qt5/QtSql/qsqlquery.h \
-		/usr/include/qt5/QtSql/qsql.h \
+		/usr/include/qt5/QtCore/QDebug \
+		/usr/include/qt5/QtCore/qdebug.h \
+		/usr/include/qt5/QtCore/qalgorithms.h \
 		/usr/include/qt5/QtCore/qglobal.h \
 		/usr/include/qt5/QtCore/qconfig.h \
 		/usr/include/qt5/QtCore/qfeatures.h \
@@ -558,21 +568,23 @@ main.o: ../SQLite-test/main.cpp ../SQLite-test/db.h \
 		/usr/include/qt5/QtCore/qtypeinfo.h \
 		/usr/include/qt5/QtCore/qtypetraits.h \
 		/usr/include/qt5/QtCore/qsysinfo.h \
-		/usr/include/qt5/QtSql/qsqldatabase.h \
-		/usr/include/qt5/QtCore/qstring.h \
+		/usr/include/qt5/QtCore/qhash.h \
 		/usr/include/qt5/QtCore/qchar.h \
-		/usr/include/qt5/QtCore/qbytearray.h \
+		/usr/include/qt5/QtCore/qiterator.h \
+		/usr/include/qt5/QtCore/qlist.h \
 		/usr/include/qt5/QtCore/qrefcount.h \
-		/usr/include/qt5/QtCore/qnamespace.h \
-		/usr/include/qt5/QtCore/qarraydata.h \
-		/usr/include/qt5/QtCore/qstringbuilder.h \
-		/usr/include/qt5/QtCore/QObject \
+		/usr/include/qt5/QtCore/qpair.h \
+		/usr/include/qt5/QtCore/qmap.h \
+		/usr/include/qt5/QtCore/qtextstream.h \
+		/usr/include/qt5/QtCore/qiodevice.h \
 		/usr/include/qt5/QtCore/qobject.h \
 		/usr/include/qt5/QtCore/qobjectdefs.h \
+		/usr/include/qt5/QtCore/qnamespace.h \
 		/usr/include/qt5/QtCore/qobjectdefs_impl.h \
-		/usr/include/qt5/QtCore/qlist.h \
-		/usr/include/qt5/QtCore/qalgorithms.h \
-		/usr/include/qt5/QtCore/qiterator.h \
+		/usr/include/qt5/QtCore/qstring.h \
+		/usr/include/qt5/QtCore/qbytearray.h \
+		/usr/include/qt5/QtCore/qarraydata.h \
+		/usr/include/qt5/QtCore/qstringbuilder.h \
 		/usr/include/qt5/QtCore/qcoreevent.h \
 		/usr/include/qt5/QtCore/qscopedpointer.h \
 		/usr/include/qt5/QtCore/qmetatype.h \
@@ -580,36 +592,37 @@ main.o: ../SQLite-test/main.cpp ../SQLite-test/db.h \
 		/usr/include/qt5/QtCore/qcontainerfwd.h \
 		/usr/include/qt5/QtCore/qisenum.h \
 		/usr/include/qt5/QtCore/qobject_impl.h \
+		/usr/include/qt5/QtCore/qlocale.h \
+		/usr/include/qt5/QtCore/qvariant.h \
+		/usr/include/qt5/QtCore/qstringlist.h \
+		/usr/include/qt5/QtCore/qdatastream.h \
+		/usr/include/qt5/QtCore/qregexp.h \
+		/usr/include/qt5/QtCore/qstringmatcher.h \
+		/usr/include/qt5/QtCore/qshareddata.h \
+		/usr/include/qt5/QtCore/qvector.h \
+		/usr/include/qt5/QtCore/qpoint.h \
+		/usr/include/qt5/QtCore/qset.h \
+		/usr/include/qt5/QtCore/qcontiguouscache.h \
+		/usr/include/qt5/QtSql/QSqlQuery \
+		/usr/include/qt5/QtSql/qsqlquery.h \
+		/usr/include/qt5/QtSql/qsql.h \
+		/usr/include/qt5/QtSql/qsqldatabase.h \
+		/usr/include/qt5/QtCore/QObject \
 		/usr/include/qt5/QtSql/QSqlDatabase \
 		/usr/include/qt5/QtSql/QSqlError \
 		/usr/include/qt5/QtSql/qsqlerror.h \
 		/usr/include/qt5/QtCore/QFile \
 		/usr/include/qt5/QtCore/qfile.h \
 		/usr/include/qt5/QtCore/qfiledevice.h \
-		/usr/include/qt5/QtCore/qiodevice.h \
 		/usr/include/qt5/QtCore/QDir \
 		/usr/include/qt5/QtCore/qdir.h \
 		/usr/include/qt5/QtCore/qfileinfo.h \
-		/usr/include/qt5/QtCore/qshareddata.h \
-		/usr/include/qt5/QtCore/qstringlist.h \
-		/usr/include/qt5/QtCore/qdatastream.h \
-		/usr/include/qt5/QtCore/qpair.h \
-		/usr/include/qt5/QtCore/qregexp.h \
-		/usr/include/qt5/QtCore/qstringmatcher.h \
 		/usr/include/qt5/QtCore/QVariant \
-		/usr/include/qt5/QtCore/qvariant.h \
-		/usr/include/qt5/QtCore/qmap.h \
-		/usr/include/qt5/QtCore/qdebug.h \
-		/usr/include/qt5/QtCore/qhash.h \
-		/usr/include/qt5/QtCore/qtextstream.h \
-		/usr/include/qt5/QtCore/qlocale.h \
-		/usr/include/qt5/QtCore/qvector.h \
-		/usr/include/qt5/QtCore/qpoint.h \
-		/usr/include/qt5/QtCore/qset.h \
-		/usr/include/qt5/QtCore/qcontiguouscache.h \
 		/usr/include/qt5/QtCore/QUrl \
 		/usr/include/qt5/QtCore/qurl.h \
 		/usr/include/qt5/QtCore/qurlquery.h \
+		/usr/include/qt5/QtSql/QSqlRecord \
+		/usr/include/qt5/QtSql/qsqlrecord.h \
 		../SQLite-test/mainwindow.h \
 		/usr/include/qt5/QtWidgets/QMainWindow \
 		/usr/include/qt5/QtWidgets/qmainwindow.h \
@@ -767,6 +780,7 @@ mainwindow.o: ../SQLite-test/mainwindow.cpp ../SQLite-test/mainwindow.h \
 		/usr/include/qt5/QtWidgets/qtabwidget.h \
 		/usr/include/qt5/QtGui/qicon.h \
 		../SQLite-test/db.h \
+		/usr/include/qt5/QtCore/QDebug \
 		/usr/include/qt5/QtSql/QSqlQuery \
 		/usr/include/qt5/QtSql/qsqlquery.h \
 		/usr/include/qt5/QtSql/qsql.h \
@@ -781,6 +795,8 @@ mainwindow.o: ../SQLite-test/mainwindow.cpp ../SQLite-test/mainwindow.h \
 		/usr/include/qt5/QtCore/qfileinfo.h \
 		/usr/include/qt5/QtCore/QVariant \
 		/usr/include/qt5/QtCore/QUrl \
+		/usr/include/qt5/QtSql/QSqlRecord \
+		/usr/include/qt5/QtSql/qsqlrecord.h \
 		ui_mainwindow.h \
 		/usr/include/qt5/QtWidgets/QAction \
 		/usr/include/qt5/QtWidgets/qaction.h \
@@ -794,6 +810,9 @@ mainwindow.o: ../SQLite-test/mainwindow.cpp ../SQLite-test/mainwindow.h \
 		/usr/include/qt5/QtGui/qinputmethod.h \
 		/usr/include/qt5/QtWidgets/QButtonGroup \
 		/usr/include/qt5/QtWidgets/qbuttongroup.h \
+		/usr/include/qt5/QtWidgets/QCheckBox \
+		/usr/include/qt5/QtWidgets/qcheckbox.h \
+		/usr/include/qt5/QtWidgets/qabstractbutton.h \
 		/usr/include/qt5/QtWidgets/QGridLayout \
 		/usr/include/qt5/QtWidgets/qgridlayout.h \
 		/usr/include/qt5/QtWidgets/qlayout.h \
@@ -818,24 +837,34 @@ mainwindow.o: ../SQLite-test/mainwindow.cpp ../SQLite-test/mainwindow.h \
 		/usr/include/qt5/QtWidgets/qrubberband.h \
 		/usr/include/qt5/QtWidgets/QLabel \
 		/usr/include/qt5/QtWidgets/qlabel.h \
+		/usr/include/qt5/QtWidgets/QLineEdit \
+		/usr/include/qt5/QtWidgets/qlineedit.h \
+		/usr/include/qt5/QtGui/qtextcursor.h \
+		/usr/include/qt5/QtGui/qtextformat.h \
+		/usr/include/qt5/QtGui/qpen.h \
+		/usr/include/qt5/QtGui/qtextoption.h \
 		/usr/include/qt5/QtWidgets/QPushButton \
 		/usr/include/qt5/QtWidgets/qpushbutton.h \
-		/usr/include/qt5/QtWidgets/qabstractbutton.h \
 		/usr/include/qt5/QtWidgets/QSpacerItem \
+		/usr/include/qt5/QtWidgets/QSpinBox \
+		/usr/include/qt5/QtWidgets/qspinbox.h \
 		/usr/include/qt5/QtWidgets/QStatusBar \
 		/usr/include/qt5/QtWidgets/qstatusbar.h \
 		/usr/include/qt5/QtWidgets/QTabWidget \
 		/usr/include/qt5/QtWidgets/QVBoxLayout \
 		/usr/include/qt5/QtWidgets/QWidget \
+		../SQLite-test/ClickableLabel.h \
 		/usr/include/qt5/QtWidgets/QFileDialog \
 		/usr/include/qt5/QtWidgets/qfiledialog.h \
-		/usr/include/qt5/QtWidgets/qdialog.h
+		/usr/include/qt5/QtWidgets/qdialog.h \
+		/usr/include/qt5/QtCore/QDate \
+		/usr/include/qt5/QtCore/qdatetime.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../SQLite-test/mainwindow.cpp
 
 db.o: ../SQLite-test/db.cpp ../SQLite-test/db.h \
-		/usr/include/qt5/QtSql/QSqlQuery \
-		/usr/include/qt5/QtSql/qsqlquery.h \
-		/usr/include/qt5/QtSql/qsql.h \
+		/usr/include/qt5/QtCore/QDebug \
+		/usr/include/qt5/QtCore/qdebug.h \
+		/usr/include/qt5/QtCore/qalgorithms.h \
 		/usr/include/qt5/QtCore/qglobal.h \
 		/usr/include/qt5/QtCore/qconfig.h \
 		/usr/include/qt5/QtCore/qfeatures.h \
@@ -872,21 +901,23 @@ db.o: ../SQLite-test/db.cpp ../SQLite-test/db.h \
 		/usr/include/qt5/QtCore/qtypeinfo.h \
 		/usr/include/qt5/QtCore/qtypetraits.h \
 		/usr/include/qt5/QtCore/qsysinfo.h \
-		/usr/include/qt5/QtSql/qsqldatabase.h \
-		/usr/include/qt5/QtCore/qstring.h \
+		/usr/include/qt5/QtCore/qhash.h \
 		/usr/include/qt5/QtCore/qchar.h \
-		/usr/include/qt5/QtCore/qbytearray.h \
+		/usr/include/qt5/QtCore/qiterator.h \
+		/usr/include/qt5/QtCore/qlist.h \
 		/usr/include/qt5/QtCore/qrefcount.h \
-		/usr/include/qt5/QtCore/qnamespace.h \
-		/usr/include/qt5/QtCore/qarraydata.h \
-		/usr/include/qt5/QtCore/qstringbuilder.h \
-		/usr/include/qt5/QtCore/QObject \
+		/usr/include/qt5/QtCore/qpair.h \
+		/usr/include/qt5/QtCore/qmap.h \
+		/usr/include/qt5/QtCore/qtextstream.h \
+		/usr/include/qt5/QtCore/qiodevice.h \
 		/usr/include/qt5/QtCore/qobject.h \
 		/usr/include/qt5/QtCore/qobjectdefs.h \
+		/usr/include/qt5/QtCore/qnamespace.h \
 		/usr/include/qt5/QtCore/qobjectdefs_impl.h \
-		/usr/include/qt5/QtCore/qlist.h \
-		/usr/include/qt5/QtCore/qalgorithms.h \
-		/usr/include/qt5/QtCore/qiterator.h \
+		/usr/include/qt5/QtCore/qstring.h \
+		/usr/include/qt5/QtCore/qbytearray.h \
+		/usr/include/qt5/QtCore/qarraydata.h \
+		/usr/include/qt5/QtCore/qstringbuilder.h \
 		/usr/include/qt5/QtCore/qcoreevent.h \
 		/usr/include/qt5/QtCore/qscopedpointer.h \
 		/usr/include/qt5/QtCore/qmetatype.h \
@@ -894,40 +925,47 @@ db.o: ../SQLite-test/db.cpp ../SQLite-test/db.h \
 		/usr/include/qt5/QtCore/qcontainerfwd.h \
 		/usr/include/qt5/QtCore/qisenum.h \
 		/usr/include/qt5/QtCore/qobject_impl.h \
+		/usr/include/qt5/QtCore/qlocale.h \
+		/usr/include/qt5/QtCore/qvariant.h \
+		/usr/include/qt5/QtCore/qstringlist.h \
+		/usr/include/qt5/QtCore/qdatastream.h \
+		/usr/include/qt5/QtCore/qregexp.h \
+		/usr/include/qt5/QtCore/qstringmatcher.h \
+		/usr/include/qt5/QtCore/qshareddata.h \
+		/usr/include/qt5/QtCore/qvector.h \
+		/usr/include/qt5/QtCore/qpoint.h \
+		/usr/include/qt5/QtCore/qset.h \
+		/usr/include/qt5/QtCore/qcontiguouscache.h \
+		/usr/include/qt5/QtSql/QSqlQuery \
+		/usr/include/qt5/QtSql/qsqlquery.h \
+		/usr/include/qt5/QtSql/qsql.h \
+		/usr/include/qt5/QtSql/qsqldatabase.h \
+		/usr/include/qt5/QtCore/QObject \
 		/usr/include/qt5/QtSql/QSqlDatabase \
 		/usr/include/qt5/QtSql/QSqlError \
 		/usr/include/qt5/QtSql/qsqlerror.h \
 		/usr/include/qt5/QtCore/QFile \
 		/usr/include/qt5/QtCore/qfile.h \
 		/usr/include/qt5/QtCore/qfiledevice.h \
-		/usr/include/qt5/QtCore/qiodevice.h \
 		/usr/include/qt5/QtCore/QDir \
 		/usr/include/qt5/QtCore/qdir.h \
 		/usr/include/qt5/QtCore/qfileinfo.h \
-		/usr/include/qt5/QtCore/qshareddata.h \
-		/usr/include/qt5/QtCore/qstringlist.h \
-		/usr/include/qt5/QtCore/qdatastream.h \
-		/usr/include/qt5/QtCore/qpair.h \
-		/usr/include/qt5/QtCore/qregexp.h \
-		/usr/include/qt5/QtCore/qstringmatcher.h \
 		/usr/include/qt5/QtCore/QVariant \
-		/usr/include/qt5/QtCore/qvariant.h \
-		/usr/include/qt5/QtCore/qmap.h \
-		/usr/include/qt5/QtCore/qdebug.h \
-		/usr/include/qt5/QtCore/qhash.h \
-		/usr/include/qt5/QtCore/qtextstream.h \
-		/usr/include/qt5/QtCore/qlocale.h \
-		/usr/include/qt5/QtCore/qvector.h \
-		/usr/include/qt5/QtCore/qpoint.h \
-		/usr/include/qt5/QtCore/qset.h \
-		/usr/include/qt5/QtCore/qcontiguouscache.h \
 		/usr/include/qt5/QtCore/QUrl \
 		/usr/include/qt5/QtCore/qurl.h \
-		/usr/include/qt5/QtCore/qurlquery.h
+		/usr/include/qt5/QtCore/qurlquery.h \
+		/usr/include/qt5/QtSql/QSqlRecord \
+		/usr/include/qt5/QtSql/qsqlrecord.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o db.o ../SQLite-test/db.cpp
+
+ClickableLabel.o: ../SQLite-test/ClickableLabel.cpp ../SQLite-test/ClickableLabel.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ClickableLabel.o ../SQLite-test/ClickableLabel.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp
+
+moc_ClickableLabel.o: moc_ClickableLabel.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_ClickableLabel.o moc_ClickableLabel.cpp
 
 ####### Install
 

@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include "db.h"
-
+#include "ClickableLabel.h"
 
 namespace Ui {
 class MainWindow;
@@ -48,10 +48,13 @@ private slots:
 
     void on_NumeroSelectSpinBox_4_valueChanged(int arg1);
 
+
 private:
     Ui::MainWindow *ui;
     //ajout d'un manager de bdd dans la classe MainWindow
     DatabaseManager *db_manage;
+
+    ClickableLabel* qlabel;
 
     // chaine pour les tests sur ouverture d'image
     std::string * file_url_string;
