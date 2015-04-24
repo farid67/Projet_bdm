@@ -29,6 +29,8 @@ bool DatabaseManager::createDB()
     QString* dirBDD = new QString(dir->absolutePath());
     dirBDD->append(QDir::separator()).append("my.db.sqlite");
     db.setDatabaseName(*dirBDD);
+    db.setConnectOptions("foreign_keys = ON");
+
 
 //    #else
 //    // NOTE: File exists in the application private folder, in Symbian Qt implementation
@@ -62,6 +64,7 @@ bool DatabaseManager::openDB()
 //    dirBDD->append("my.db.sqlite");
     dirBDD->append(QDir::separator()).append("my.db.sqlite");
     db.setDatabaseName(*dirBDD);
+    db.setConnectOptions("foreign_keys = ON");
 //    #endif
 
 //*/
@@ -106,20 +109,26 @@ bool DatabaseManager::createImageTable()
 {
     // create Image table
     bool ret = false;
+    bool ret2 = false;
 
     if (db.isOpen())// vérifier d'abord que la base de données à bien été ouverte
     {
-        QSqlQuery query;// création d'une requête
+        QSqlQuery query1;
+
+        ret = query1.exec(QString("create table IF NOT EXISTS Player (ID INTEGER PRIMARY KEY AUTOINCREMENT, NOM VARCHAR(1024), PRENOM VARCHAR(1024))"));
+
+
+        QSqlQuery query2;// création d'une requête
         // pour le moment on ajoute uniquement l'url de la photo à la base de donnée (pas la photo directement vu que les données sont en local)
         // amélioration possible -> ajouter la photo ainsi que la date à laquelle elle a été prise
 
 
 
         // ATTENTION -> SPécifier IF not exists pour ne pas avoir d'erreur si la table a déjà été créée
-        ret = query.exec(QString("create table IF NOT EXISTS Image (ID INTEGER PRIMARY KEY AUTOINCREMENT, URL VARCHAR(1024),YEAR INTEGER, JOUEUR_NOM VARCHAR (1024), JOUEUR_NUMERO INTERGER)"));
+        ret2 = query2.exec(QString("create table IF NOT EXISTS Image (ID INTEGER PRIMARY KEY AUTOINCREMENT, URL VARCHAR(1024),YEAR INTEGER,JOUEUR_NOM VARCHAR (1024), JOUEUR_NUMERO INTEGER, FOREIGN KEY(JOUEUR_NOM) REFERENCES Player(NOM))"));
 
     }
-    return ret;
+    return (ret2&&ret);
 }
 
 
@@ -132,43 +141,77 @@ int DatabaseManager::insertImage(QString* url_photo, int date, QString *player_n
 
     if (db.open())
     {
-        // Sqlite uses the autoincrement password to increment the ID field
-        QSqlQuery query;
-//        ret = query.exec (QString("INSERT into Image(url,year,joueur_nom, joueur_numero) values ('%1',%2,'%3',%4')").arg(*url_photo).arg(date).arg(*player_name).arg(player_number));
-        query.prepare("INSERT into Image(url,year,joueur_nom, joueur_numero) values (:url,:year,:player_name,:player_number)");
-        // bind_values
-        query.bindValue(":url",*url_photo);
+        // Check si le joueur existe
 
-        // check if year is entred
-        if (date == -1)
-            query.bindValue(":year",QVariant(QVariant::Int));
-        else
-            query.bindValue(":year",date);
+        QSqlQuery query_joueur ;
+        query_joueur.prepare("SELECT count(*) FROM player where nom = :player_name");
+        query_joueur.bindValue(":player_name",*player_name);
 
-        // player_name has to be entered to set the insert button enable
+        bool ret1 = query_joueur.exec();
+        query_joueur.record();
+        query_joueur.next();
 
-//        //check if player name was entered
-//        if (player_name->size()==0)
-//            query.bindValue(":player_name",QVariant(QVariant::String));
-//        else
-            query.bindValue(":player_name",*player_name);
+        bool exist = query_joueur.value(0).toInt();
+//        std::cout << query_joueur.value(0).toInt() << " joueurs correspondentà votre recherche dans la base de donnée" << std::endl;
 
-        // check if player number was entered
-        if (player_number == -1)
-            query.bindValue(":player_number",QVariant(QVariant::Int));
-        else
-            query.bindValue(":player_number",player_number);
-
-
-        // exec the query
-        ret = query.exec();
-        if (ret)
+        if (ret1 && !exist)
         {
-            newId = query.lastInsertId().toInt();
-            std::cout << "insertion réussie , id = " << newId << std::endl;
+            std::cout << "ce joueur n'existe pas dans la bdd" << std::endl;
+            // ajouter le joueur dans la bdd player
+
+            QSqlQuery query_addPlayer;
+            query_addPlayer.prepare("INSERT into player(NOM) values(:player_name)");
+            query_addPlayer.bindValue(":player_name",*player_name);
+
+            exist = query_addPlayer.exec();
         }
-        else
-            qDebug() << lastError();
+
+
+        if (exist)
+        {
+            std::cout << "le joueur " << player_name->toStdString() << " existe bien dans la table player " << std::endl;
+
+            // Sqlite uses the autoincrement password to increment the ID field
+            QSqlQuery query;
+    //        ret = query.exec (QString("INSERT into Image(url,year,joueur_nom, joueur_numero) values ('%1',%2,'%3',%4')").arg(*url_photo).arg(date).arg(*player_name).arg(player_number));
+            query.prepare("INSERT into Image(url,year,joueur_nom, joueur_numero) values (:url,:year,:player_name,:player_number)");
+
+
+            // bind_values
+            query.bindValue(":url",*url_photo);
+
+            // check if year is entred
+            if (date == -1)
+                query.bindValue(":year",QVariant(QVariant::Int));
+            else
+                query.bindValue(":year",date);
+
+            // player_name has to be entered to set the insert button enable
+
+    //        //check if player name was entered
+    //        if (player_name->size()==0)
+    //            query.bindValue(":player_name",QVariant(QVariant::String));
+    //        else
+                query.bindValue(":player_name",*player_name);
+
+            // check if player number was entered
+            if (player_number == -1)
+                query.bindValue(":player_number",QVariant(QVariant::Int));
+            else
+                query.bindValue(":player_number",player_number);
+
+
+            // exec the query
+
+            ret = query.exec();
+            if (ret)
+            {
+                newId = query.lastInsertId().toInt();
+                std::cout << "insertion réussie , id = " << newId << std::endl;
+            }
+            else
+                qDebug() << lastError();
+        }
     }
     return newId;
 }
@@ -215,15 +258,11 @@ QStringList* DatabaseManager::selectImage(int year,QString* player_name, int pla
 
         if (ret)
         {
-            QSqlRecord rec = query.record();
-
-            std::cout << rec.count() << " correspondent à votre requete" << std::endl;
+            query.record();
 
 //            int url = rec.indexOf("url");
             while (query.next())
             {
-                std::cout << "correspondance" << std::endl;
-
                 url_list->push_back( query.value(0).toString());
                 std::cout << "url : " <<  query.value(0).toString().toStdString() << std::endl;
             }
@@ -233,4 +272,23 @@ QStringList* DatabaseManager::selectImage(int year,QString* player_name, int pla
 
     // afficher les résultats dans la Frame contenant les images ou bien un message comme quoi aucunes images ne correspond
     return url_list;
+}
+
+
+bool DatabaseManager::suppressImages()
+{
+    bool ret = false;
+    if (db.open())
+    {
+        QSqlQuery query;
+        query.prepare("DELETE FROM Image where id NOT NULL");
+        ret = query.exec();
+
+        if (ret)
+        {
+            std::cout << "images supprimées" << std::endl;
+        }
+    }
+
+    return ret;
 }

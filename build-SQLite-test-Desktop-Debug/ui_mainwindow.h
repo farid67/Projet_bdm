@@ -15,6 +15,7 @@
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QCheckBox>
 #include <QtWidgets/QGridLayout>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
@@ -24,6 +25,7 @@
 #include <QtWidgets/QSpinBox>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTabWidget>
+#include <QtWidgets/QToolButton>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 #include "ClickableLabel.h"
@@ -86,8 +88,22 @@ public:
     QPushButton *pushButton_7;
     QSpacerItem *horizontalSpacer_3;
     QSpacerItem *horizontalSpacer_4;
-    QPushButton *pushButton_5;
+    QPushButton *ModifyImagepushButton;
     QSpacerItem *horizontalSpacer_5;
+    QWidget *tab_3;
+    QWidget *gridLayoutWidget_6;
+    QGridLayout *gridLayout_6;
+    QGridLayout *gridLayout_8;
+    QVBoxLayout *verticalLayout_14;
+    QToolButton *DeleteAlltoolButton;
+    QLabel *DeleteLabel;
+    QGridLayout *gridLayout_7;
+    QVBoxLayout *verticalLayout_12;
+    QLineEdit *Admin_pwlineEdit;
+    QVBoxLayout *verticalLayout_11;
+    QLabel *label_5;
+    QHBoxLayout *horizontalLayout;
+    QPushButton *AdminpushButton;
     QWidget *tab;
     QWidget *gridLayoutWidget_3;
     QGridLayout *gridLayout_3;
@@ -103,11 +119,21 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
         MainWindow->resize(693, 492);
+        QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(MainWindow->sizePolicy().hasHeightForWidth());
+        MainWindow->setSizePolicy(sizePolicy);
+        MainWindow->setLayoutDirection(Qt::LeftToRight);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         AcceuilOnglet = new QTabWidget(centralWidget);
         AcceuilOnglet->setObjectName(QStringLiteral("AcceuilOnglet"));
         AcceuilOnglet->setGeometry(QRect(0, 0, 691, 471));
+        AcceuilOnglet->setTabPosition(QTabWidget::North);
+        AcceuilOnglet->setIconSize(QSize(32, 32));
+        AcceuilOnglet->setTabsClosable(false);
+        AcceuilOnglet->setMovable(false);
         tab_5 = new QWidget();
         tab_5->setObjectName(QStringLiteral("tab_5"));
         verticalLayoutWidget_2 = new QWidget(tab_5);
@@ -404,16 +430,117 @@ public:
 
         gridLayout_5->addItem(horizontalSpacer_4, 0, 2, 1, 1);
 
-        pushButton_5 = new QPushButton(gridLayoutWidget_5);
-        pushButton_5->setObjectName(QStringLiteral("pushButton_5"));
+        ModifyImagepushButton = new QPushButton(gridLayoutWidget_5);
+        ModifyImagepushButton->setObjectName(QStringLiteral("ModifyImagepushButton"));
 
-        gridLayout_5->addWidget(pushButton_5, 0, 1, 1, 1);
+        gridLayout_5->addWidget(ModifyImagepushButton, 0, 1, 1, 1);
 
         horizontalSpacer_5 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         gridLayout_5->addItem(horizontalSpacer_5, 0, 0, 1, 1);
 
         AcceuilOnglet->addTab(tab_2, QString());
+        tab_3 = new QWidget();
+        tab_3->setObjectName(QStringLiteral("tab_3"));
+        gridLayoutWidget_6 = new QWidget(tab_3);
+        gridLayoutWidget_6->setObjectName(QStringLiteral("gridLayoutWidget_6"));
+        gridLayoutWidget_6->setGeometry(QRect(19, 10, 651, 411));
+        gridLayout_6 = new QGridLayout(gridLayoutWidget_6);
+        gridLayout_6->setSpacing(6);
+        gridLayout_6->setContentsMargins(11, 11, 11, 11);
+        gridLayout_6->setObjectName(QStringLiteral("gridLayout_6"));
+        gridLayout_6->setContentsMargins(0, 0, 0, 0);
+        gridLayout_8 = new QGridLayout();
+        gridLayout_8->setSpacing(6);
+        gridLayout_8->setObjectName(QStringLiteral("gridLayout_8"));
+        verticalLayout_14 = new QVBoxLayout();
+        verticalLayout_14->setSpacing(6);
+        verticalLayout_14->setObjectName(QStringLiteral("verticalLayout_14"));
+        DeleteAlltoolButton = new QToolButton(gridLayoutWidget_6);
+        DeleteAlltoolButton->setObjectName(QStringLiteral("DeleteAlltoolButton"));
+        DeleteAlltoolButton->setEnabled(true);
+        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Fixed);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(DeleteAlltoolButton->sizePolicy().hasHeightForWidth());
+        DeleteAlltoolButton->setSizePolicy(sizePolicy1);
+        DeleteAlltoolButton->setAutoFillBackground(false);
+        DeleteAlltoolButton->setCheckable(false);
+        DeleteAlltoolButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+
+        verticalLayout_14->addWidget(DeleteAlltoolButton);
+
+        DeleteLabel = new QLabel(gridLayoutWidget_6);
+        DeleteLabel->setObjectName(QStringLiteral("DeleteLabel"));
+        sizePolicy1.setHeightForWidth(DeleteLabel->sizePolicy().hasHeightForWidth());
+        DeleteLabel->setSizePolicy(sizePolicy1);
+        DeleteLabel->setAlignment(Qt::AlignCenter);
+
+        verticalLayout_14->addWidget(DeleteLabel);
+
+
+        gridLayout_8->addLayout(verticalLayout_14, 0, 0, 1, 1);
+
+
+        gridLayout_6->addLayout(gridLayout_8, 1, 0, 1, 1);
+
+        gridLayout_7 = new QGridLayout();
+        gridLayout_7->setSpacing(6);
+        gridLayout_7->setObjectName(QStringLiteral("gridLayout_7"));
+        gridLayout_7->setSizeConstraint(QLayout::SetFixedSize);
+        verticalLayout_12 = new QVBoxLayout();
+        verticalLayout_12->setSpacing(6);
+        verticalLayout_12->setObjectName(QStringLiteral("verticalLayout_12"));
+        Admin_pwlineEdit = new QLineEdit(gridLayoutWidget_6);
+        Admin_pwlineEdit->setObjectName(QStringLiteral("Admin_pwlineEdit"));
+        QSizePolicy sizePolicy2(QSizePolicy::Minimum, QSizePolicy::Fixed);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(Admin_pwlineEdit->sizePolicy().hasHeightForWidth());
+        Admin_pwlineEdit->setSizePolicy(sizePolicy2);
+        Admin_pwlineEdit->setAutoFillBackground(false);
+        Admin_pwlineEdit->setEchoMode(QLineEdit::Password);
+
+        verticalLayout_12->addWidget(Admin_pwlineEdit);
+
+
+        gridLayout_7->addLayout(verticalLayout_12, 0, 2, 1, 1);
+
+        verticalLayout_11 = new QVBoxLayout();
+        verticalLayout_11->setSpacing(6);
+        verticalLayout_11->setObjectName(QStringLiteral("verticalLayout_11"));
+        label_5 = new QLabel(gridLayoutWidget_6);
+        label_5->setObjectName(QStringLiteral("label_5"));
+        label_5->setEnabled(false);
+        label_5->setLayoutDirection(Qt::LeftToRight);
+        label_5->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+
+        verticalLayout_11->addWidget(label_5);
+
+
+        gridLayout_7->addLayout(verticalLayout_11, 0, 1, 1, 1);
+
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setSpacing(6);
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
+        AdminpushButton = new QPushButton(gridLayoutWidget_6);
+        AdminpushButton->setObjectName(QStringLiteral("AdminpushButton"));
+        AdminpushButton->setEnabled(false);
+        QSizePolicy sizePolicy3(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy3.setHorizontalStretch(0);
+        sizePolicy3.setVerticalStretch(0);
+        sizePolicy3.setHeightForWidth(AdminpushButton->sizePolicy().hasHeightForWidth());
+        AdminpushButton->setSizePolicy(sizePolicy3);
+
+        horizontalLayout->addWidget(AdminpushButton);
+
+
+        gridLayout_7->addLayout(horizontalLayout, 1, 1, 1, 2);
+
+
+        gridLayout_6->addLayout(gridLayout_7, 0, 0, 1, 1);
+
+        AcceuilOnglet->addTab(tab_3, QString());
         tab = new QWidget();
         tab->setObjectName(QStringLiteral("tab"));
         gridLayoutWidget_3 = new QWidget(tab);
@@ -434,11 +561,11 @@ public:
         label_3 = new QLabel(gridLayoutWidget_3);
         label_3->setObjectName(QStringLiteral("label_3"));
         label_3->setEnabled(false);
-        QSizePolicy sizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(label_3->sizePolicy().hasHeightForWidth());
-        label_3->setSizePolicy(sizePolicy);
+        QSizePolicy sizePolicy4(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred);
+        sizePolicy4.setHorizontalStretch(0);
+        sizePolicy4.setVerticalStretch(0);
+        sizePolicy4.setHeightForWidth(label_3->sizePolicy().hasHeightForWidth());
+        label_3->setSizePolicy(sizePolicy4);
         label_3->setMaximumSize(QSize(530, 100));
         QFont font2;
         font2.setPointSize(14);
@@ -517,15 +644,20 @@ public:
         label_12->setText(QApplication::translate("MainWindow", "Nom du Joueur :", 0));
         urlSelectLabel->setText(QApplication::translate("MainWindow", "Veuillez sp\303\251cifier au moins le nom du joueur pour effectuer une nouvelle recherche", 0));
         pushButton_7->setText(QApplication::translate("MainWindow", "Delete item", 0));
-        pushButton_5->setText(QApplication::translate("MainWindow", "Modify item", 0));
+        ModifyImagepushButton->setText(QApplication::translate("MainWindow", "Modify item", 0));
         AcceuilOnglet->setTabText(AcceuilOnglet->indexOf(tab_2), QApplication::translate("MainWindow", "Bdd_elements", 0));
+        DeleteAlltoolButton->setText(QApplication::translate("MainWindow", "Delete all images from the database", 0));
+        DeleteLabel->setText(QString());
+        label_5->setText(QApplication::translate("MainWindow", "Mot de Passe :", 0));
+        AdminpushButton->setText(QApplication::translate("MainWindow", "Verification", 0));
+        AcceuilOnglet->setTabText(AcceuilOnglet->indexOf(tab_3), QApplication::translate("MainWindow", "Admin", 0));
         label_3->setText(QApplication::translate("MainWindow", "A noter que les cr\303\251ateurs de ce projet ne r\303\251clament aucuns droits sur les photos utilis\303\251es. \n"
 " Pour retrouver les droits relatifs aux photos, se referrer au fichier copyright.txt", 0));
         label->setText(QApplication::translate("MainWindow", "Dev : \n"
 " - MATYSIAK Pierre \n"
 " - OUHMICH Farid \n"
 " Avec la collaboration de Mr. Fabre!", 0));
-        AcceuilOnglet->setTabText(AcceuilOnglet->indexOf(tab), QApplication::translate("MainWindow", "Page", 0));
+        AcceuilOnglet->setTabText(AcceuilOnglet->indexOf(tab), QApplication::translate("MainWindow", "A propos", 0));
     } // retranslateUi
 
 };

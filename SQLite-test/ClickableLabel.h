@@ -2,6 +2,9 @@
 #define CLICKABLELABEL_H
 #include "QLabel"
 
+
+// classe créée pour pouvoir faire en sorte de cliquer sur un label (pour changer l'image  courante)
+
 class ClickableLabel : public QLabel
 {
 

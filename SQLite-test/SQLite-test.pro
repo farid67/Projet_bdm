@@ -19,10 +19,13 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     db.cpp \
-    ClickableLabel.cpp
+    ClickableLabel.cpp \
+    imageinfowindow.cpp
 
 HEADERS  += mainwindow.h \
     db.h \
-    ClickableLabel.h
+    ClickableLabel.h \
+    imageinfowindow.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    imageinfowindow.ui

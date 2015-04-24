@@ -42,6 +42,9 @@ public:
     // recherche d'une image
     QStringList *selectImage(int year,QString* playerName, int player_number);
 
+    // suppression de toutes les images de la table Image
+    bool suppressImages();
+
 
 private:
     QSqlDatabase db;

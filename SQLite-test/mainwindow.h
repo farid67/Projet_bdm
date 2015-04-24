@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include "db.h"
 #include "ClickableLabel.h"
+#include "imageinfowindow.h"
+
 
 namespace Ui {
 class MainWindow;
@@ -18,6 +20,8 @@ public:
     ~MainWindow();
 
 private slots:
+    void openImageInfo();
+
     void on_pushButton_3_clicked();
 
     void on_pushButton_4_clicked();
@@ -49,8 +53,25 @@ private slots:
     void on_NumeroSelectSpinBox_4_valueChanged(int arg1);
 
 
+    void on_Admin_pwlineEdit_textChanged(const QString &arg1);
+
+    void on_AdminpushButton_clicked();
+
+    void on_AcceuilOnglet_currentChanged(int index);
+
+    void on_DeleteAlltoolButton_clicked();
+
+    void on_Admin_pwlineEdit_returnPressed();
+
+signals:
+    void urlChanged(const QString& new_url);
+
+
 private:
     Ui::MainWindow *ui;
+
+    ImageInfoWindow* ImageInfo;
+
     //ajout d'un manager de bdd dans la classe MainWindow
     DatabaseManager *db_manage;
 

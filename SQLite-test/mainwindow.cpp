@@ -24,8 +24,7 @@ MainWindow::MainWindow(QWidget *parent) :
 //    else
 //       std::cout << "Base de données correctement ouverte" << std::endl;
     if(db_manage->createImageTable())
-        std::cout << "table image correctement créée " << std::endl;
-
+        std::cout << "table Image et Player correctement créées " << std::endl;
     // création chaine vide
     file_url = new QString();
 
@@ -48,11 +47,23 @@ MainWindow::MainWindow(QWidget *parent) :
 
     picture_date_Select = -1;
 
-    //          Problème pour connecter le clic sur le qlabel avec une fonction
+    //          Problème pour connecter le clic sur le qlabel avec une fonction -> corrigé!
 
     // le cast de ui->urlSelectLabel de qlabel en ClickableLabel ne fonctionne pas, pour contourner le problème, aller dans
     // l'interface sous "forms" et faire un clic droit sur le urlSelectLabel, puis promote To -> et enfin vers la classe
     // ClickableLabel qu'on a créé auparavant
+
+
+    ui->DeleteAlltoolButton->setVisible(false); // sera visible uniquement lorsque le mot de passe sera correct
+    ui->DeleteAlltoolButton->setIcon(QIcon("../warningIcon.png"));
+
+    ImageInfo = new ImageInfoWindow(this);
+
+    connect(ui->ModifyImagepushButton,SIGNAL(clicked()),this,SLOT(openImageInfo()));
+
+    // il faut toujours passer par une connection pour modifier le contenu de la boite de dialogue à partir de la classe courante
+    // FIN ICI
+    connect(this,SIGNAL(urlChanged(const QString&)),ImageInfo,SLOT(urlModif(const QString&)));
 
 }
 
@@ -61,6 +72,14 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+
+void MainWindow::openImageInfo()
+{
+
+//    ImageInfo->setModal(true);
+    ImageInfo->show();
+
+}
 
 void MainWindow::on_pushButton_3_clicked()
 {
@@ -92,10 +111,12 @@ void MainWindow::on_pushButton_4_clicked()
         std::cout << "url à insérer "<< file_url->toStdString() << std::endl;
 //        QString* url = new QString(*file_url->c_str());
 //        std::cout << "check url " << url->toStdString() << std::endl ;
-        db_manage->insertImage(file_url,picture_date_Insert,player_name_Insert,player_number_Insert);
+        if (db_manage->insertImage(file_url,picture_date_Insert,player_name_Insert,player_number_Insert)!=-1)
+        {
+            ui->urlInsertLabel->setText("Image correctement ajoutée!");
+        }
     }
-
-//    file_url->clear();
+    file_url->clear();
 }
 
 
@@ -125,6 +146,7 @@ void MainWindow::on_SearchpushButton_clicked()
     else
     {
         ui->urlSelectLabel->url_select = url_founded;
+        emit (urlChanged(url_founded->at(0)));
         // gérer le fait que plusieurs images peuvent correspondre à la requête
         ui->urlSelectLabel->setPixmap(url_founded->at(0));
         ui->urlSelectLabel->current_image = 0;
@@ -208,3 +230,60 @@ void MainWindow::on_NumeroSelectSpinBox_4_valueChanged(int arg1)
     player_number_Select = arg1;
 }
 
+
+void MainWindow::on_Admin_pwlineEdit_textChanged(const QString &arg1)
+{
+    if(arg1.size()>0)
+    {
+        ui->AdminpushButton->setEnabled(true);
+        ui->AdminpushButton->setStyleSheet("background-color:none");
+    }
+    else
+        ui->AdminpushButton->setEnabled(false);
+}
+
+
+
+void MainWindow::on_AdminpushButton_clicked()
+{
+    if (ui->Admin_pwlineEdit->text() == "fcb2015")
+    {
+        ui->DeleteAlltoolButton->setVisible(true);
+        ui->AdminpushButton->setEnabled(false);
+        ui->Admin_pwlineEdit->clear();
+    }
+    else
+        ui->AdminpushButton->setStyleSheet("background-color:red");
+}
+
+void MainWindow::on_AcceuilOnglet_currentChanged(int index)
+{
+    if(index!= 3)// Admin
+    {
+        ui->DeleteAlltoolButton->setVisible(false);
+        ui->AdminpushButton->setStyleSheet("background-color:none");
+        ui->DeleteLabel->clear();
+    }
+
+    if (index != 1) // New image
+    {
+        ui->urlSelectLabel->setText("Aucune image séléctionnée pour le moment");
+    }
+}
+
+void MainWindow::on_DeleteAlltoolButton_clicked()
+{
+    // requete sqlite pour supprimer toutes les entrées de la table image
+    if (db_manage->suppressImages())
+    {
+        ui->DeleteLabel->setText("Toutes les images ont été correctement supprimées de la base");
+    }
+    else
+        ui->DeleteLabel->setText("Problème lors de la suppression...");
+}
+
+void MainWindow::on_Admin_pwlineEdit_returnPressed()
+{
+    // simuler un clic sur le bouton "Vérification"
+    on_AdminpushButton_clicked();
+}
