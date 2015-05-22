@@ -20,6 +20,8 @@ public:
 signals:
  void clicked(QPoint p);
 
+ void urlChanged(const QString& url);
+
 public slots:
  void modifieImage(QPoint p);
 

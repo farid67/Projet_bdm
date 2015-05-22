@@ -23,12 +23,14 @@ void ClickableLabel::modifieImage(QPoint p)
     {
         current_image++;
         this->setPixmap(url_select->at(current_image));
+        emit urlChanged(url_select->at(current_image));
     }
 
     else//click sur la gauche
     {
         current_image--;
         this->setPixmap(url_select->at(current_image));
+        emit urlChanged(url_select->at(current_image));
     }
 
 }

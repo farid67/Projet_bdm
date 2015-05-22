@@ -57,13 +57,16 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->DeleteAlltoolButton->setVisible(false); // sera visible uniquement lorsque le mot de passe sera correct
     ui->DeleteAlltoolButton->setIcon(QIcon("../warningIcon.png"));
 
-    ImageInfo = new ImageInfoWindow(this);
+    ImageInfo = new ImageInfoWindow(db_manage,this);
 
     connect(ui->ModifyImagepushButton,SIGNAL(clicked()),this,SLOT(openImageInfo()));
 
     // il faut toujours passer par une connection pour modifier le contenu de la boite de dialogue à partir de la classe courante
-    // FIN ICI
     connect(this,SIGNAL(urlChanged(const QString&)),ImageInfo,SLOT(urlModif(const QString&)));
+    // modification de la liste des joueurs présent sur la photo, on créera des liens vers une fenêtre d'info/modif
+    // sur les informations du joueur
+    connect(this,SIGNAL(urlChanged(const QString&)),ImageInfo,SLOT(insertPlayerItem(const QString&)));
+    connect(ui->urlSelectLabel,SIGNAL(urlChanged(const QString&)),ImageInfo,SLOT(insertPlayerItem(const QString&)));
 
 }
 

@@ -20,12 +20,15 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     db.cpp \
     ClickableLabel.cpp \
-    imageinfowindow.cpp
+    imageinfowindow.cpp \
+    player_info.cpp
 
 HEADERS  += mainwindow.h \
     db.h \
     ClickableLabel.h \
-    imageinfowindow.h
+    imageinfowindow.h \
+    player_info.h
 
 FORMS    += mainwindow.ui \
-    imageinfowindow.ui
+    imageinfowindow.ui \
+    player_info.ui

@@ -62,7 +62,7 @@ bool DatabaseManager::openDB()
     QString* dirBDD = new QString(dir->absolutePath());
     dirBDD->append(QDir::separator()).append("my.db.sqlite");
 //    dirBDD->append("my.db.sqlite");
-    dirBDD->append(QDir::separator()).append("my.db.sqlite");
+//    dirBDD->append(QDir::separator()).append("my.db.sqlite");
     db.setDatabaseName(*dirBDD);
     db.setConnectOptions("foreign_keys = ON");
 //    #endif
@@ -125,7 +125,7 @@ bool DatabaseManager::createImageTable()
 
 
         // ATTENTION -> SPécifier IF not exists pour ne pas avoir d'erreur si la table a déjà été créée
-        ret2 = query2.exec(QString("create table IF NOT EXISTS Image (ID INTEGER PRIMARY KEY AUTOINCREMENT, URL VARCHAR(1024),YEAR INTEGER,JOUEUR_NOM VARCHAR (1024), JOUEUR_NUMERO INTEGER, FOREIGN KEY(JOUEUR_NOM) REFERENCES Player(NOM))"));
+        ret2 = query2.exec(QString("create table IF NOT EXISTS Image (ID INTEGER PRIMARY KEY AUTOINCREMENT, URL VARCHAR(1024),YEAR INTEGER,JOUEUR_NOM VARCHAR (1024), JOUEUR_NUMERO INTEGER, FOREIGN KEY(JOUEUR_NOM) REFERENCES Player(NOM)),UNIQUE(URL,JOUEUR_NOM)"));
 
     }
     return (ret2&&ret);
@@ -291,4 +291,32 @@ bool DatabaseManager::suppressImages()
     }
 
     return ret;
+}
+
+QStringList* DatabaseManager::selectPlayerByUrl(QString *url)
+{
+    QStringList* player_list = new QStringList();
+    bool ret = false;
+    std::cout << "url (select players): " << url->toStdString() << std::endl;
+    if(db.open())
+    {
+        QSqlQuery query;
+        query.prepare("Select distinct p.nom from Player p, Image i where i.joueur_nom = p.nom and i.url like :url ");
+        query.bindValue(":url",*url);
+        ret = query.exec();
+        if (ret)
+        {
+            //gestion de la liste
+            QSqlRecord rec = query.record();
+
+            int player = rec.indexOf("nom");
+            while (query.next())
+            {
+                player_list->push_back( query.value(player).toString());
+                std::cout << "joueur : " <<  query.value(player).toString().toStdString() << std::endl;
+            }
+        }
+    }
+    return player_list;
+
 }

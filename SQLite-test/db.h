@@ -45,6 +45,9 @@ public:
     // suppression de toutes les images de la table Image
     bool suppressImages();
 
+    // récupère la liste de tous les joueurs
+    QStringList *selectPlayerByUrl(QString* url);
+
 
 private:
     QSqlDatabase db;
