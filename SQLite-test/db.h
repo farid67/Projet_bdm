@@ -11,7 +11,7 @@
 #include <QVariant>
 #include <QUrl>
 #include <QSqlRecord>
-
+#include <map>
 #include <iostream>
 
 
@@ -48,6 +48,11 @@ public:
     // récupère la liste de tous les joueurs
     QStringList *selectPlayerByUrl(QString* url);
 
+    // récupère toutes les informations relatives à un joueur en fonction de son nom
+    std::map<QString, QVariant> *selectPlayerByName(const QString &name);
+
+    // modification des informations sur un joueur
+    bool updatePlayer(std::map<QString, QVariant> *player_info);
 
 private:
     QSqlDatabase db;

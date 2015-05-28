@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QListWidgetItem>
+#include <QSqlField>
 #include "db.h"
 #include "player_info.h"
 
@@ -26,6 +27,16 @@ private slots:
 signals:
     void playerClicked (const QString& player_name);
     void playerName (const QString& player_name);
+    void playerNumero (const QVariant&);
+    void playerFirstName (const QVariant&);
+    void playerDateOfBirth (const QVariant&);
+    void playerYearOfArrival(const QVariant&);
+    void playerPosition (const QVariant&);
+    void playerMatchs (const QVariant&);
+    void playerGoals (const QVariant&);
+
+    // signal pour l'envoi de l'identifiant du joueur
+    void playerId(const int);
 
 public slots:
     void urlModif(const QString &url);
