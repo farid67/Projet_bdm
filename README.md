@@ -42,3 +42,11 @@ Le site officiel, qui possède quelques statistiques et photos/vidéos désorgan
 
 Il n'existe pas (en tout cas pas visible sur Google) de base de données extensive comprenant des photos et vidéos avec 
 reconnaissance
+
+# Bilan provisoire
+
+Pour le moment, les ajouts et recherches assez basiques sont gérés par l'application, cependant un onglet avec une recherche sur les statistiques plus complètes des joueurs doit être ajouté, avec des requêtes comme "savoir quels sont tous les joueurs qui étaient dans l'équipe de 2015?"
+(ces ajouts sont assez simple au niveau de la bdd, mais l'intégration avec qt est assez longue à mettre en place)
+
+Pour ce qui est de la reconnaissance de texte, l'utilisation de tesseract donnait le résultat attendu à certains moments (avec un peu de triche sur les retours obtenus par la fonction pour ne récupérer que des entiers, etc)
+Si d'autres outils de reconnaissance de texte plus fiables apparaissent d'ici là, il serait bien de penser à les ajouter à l'application.
