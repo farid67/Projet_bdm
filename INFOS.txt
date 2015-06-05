@@ -1,0 +1,27 @@
+Ce projet a été réalisé par Farid Ouhmich et Pierre Matysiak.
+
+Concernant la division des tâches, Farid s'est occupé de la base de données, et Pierre s'est concentré sur la partie
+imagerie, à savoir extraction du texte depuis les images afin de faire les insertions dans la base.
+
+1° 
+
+2° Pour la partie image. L'extraction de texte est très complexe et sujette à de nombreux facteurs. Néanmoins dans un
+soucis d'aller au plus simple, les images ont été choisies pour favoriser la réussite de l'algorithme, à savoir des images
+où le texte est assez large et permet une reconnaissance "aisée", ces images ont également toutes le même format pour le 
+maillot (texte jaune sur fond rouge/bleu).
+
+Dans un premier temps, il y a une binarisation de l'image grâce à la teinte (hue) jaune caractéristique du texte. Un test
+supplémentaire sur les composantes RGB permet d'éliminer les tâches jaunâtres pouvant se trouver dans le public ou le 
+reste de la scène.
+
+Une fois cette image binaire obtenue, est appliqué un ouverture morphologique, combinaison d'une érosion puis d'une dilatation
+ce qui permet dans les meilleurs cas d'obtenir uniquement le numéro du joueur (plus large que le reste) en excluant les
+autres instances de texte de l'image.
+
+Après avoir obtenu une image ne contenant que le numéro, elle est passée dans un algorithme OCR de reconnaissance de caractères
+qui, bien que très capricieux, nous renvoie parfois un résultat passable ; par moment des 1 sont remplacés par des l ou des / mais
+il est possible après analyse de la chaîne de remplacer ces caractères par les chiffres correspondants pour trouver le numéro
+recherché.
+
+L'algorithme au final est peu stable et mériterait une part d'automatisation, notamment dans la determination de la taille et la
+forme de l'objet structurant pour les opérations de morphologie. 
