@@ -820,6 +820,7 @@ bool DatabaseManager::deleteImage(const QString &url)
 {
     if (db.open())
     {
+//        std::cout << "url de l'image à supprimer " << url.toStdString() << std::endl;
         QSqlQuery query;
         query.prepare("Delete from Image where url like :url");
         query.bindValue(":url",url);

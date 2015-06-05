@@ -80,6 +80,8 @@ private slots:
 
     void on_pushButton_7_clicked();
 
+    void on_SearchNumber_clicked();
+
 signals:
     void urlChanged(const QString& new_url);
 

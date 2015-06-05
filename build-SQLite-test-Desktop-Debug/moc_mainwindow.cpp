@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_MainWindow_t {
-    QByteArrayData data[33];
-    char stringdata[800];
+    QByteArrayData data[34];
+    char stringdata[824];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -61,7 +61,8 @@ QT_MOC_LITERAL(28, 661, 27),
 QT_MOC_LITERAL(29, 689, 28),
 QT_MOC_LITERAL(30, 718, 27),
 QT_MOC_LITERAL(31, 746, 28),
-QT_MOC_LITERAL(32, 775, 23)
+QT_MOC_LITERAL(32, 775, 23),
+QT_MOC_LITERAL(33, 799, 23)
     },
     "MainWindow\0urlChanged\0\0new_url\0"
     "openImageInfo\0on_pushButton_3_clicked\0"
@@ -87,7 +88,7 @@ QT_MOC_LITERAL(32, 775, 23)
     "on_DeletePlayerTable_clicked\0"
     "on_CreateImageTable_clicked\0"
     "on_CreatePlayerTable_clicked\0"
-    "on_pushButton_7_clicked\0"
+    "on_pushButton_7_clicked\0on_SearchNumber_clicked\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -97,7 +98,7 @@ static const uint qt_meta_data_MainWindow[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      27,   14, // methods
+      28,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -105,35 +106,36 @@ static const uint qt_meta_data_MainWindow[] = {
        1,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,  149,    2, 0x06,
+       1,    1,  154,    2, 0x06,
 
  // slots: name, argc, parameters, tag, flags
-       4,    0,  152,    2, 0x08,
-       5,    0,  153,    2, 0x08,
-       6,    0,  154,    2, 0x08,
-       7,    1,  155,    2, 0x08,
-       9,    1,  158,    2, 0x08,
-      10,    0,  161,    2, 0x08,
-      11,    1,  162,    2, 0x08,
-      12,    1,  165,    2, 0x08,
-      14,    1,  168,    2, 0x08,
-      15,    1,  171,    2, 0x08,
-      16,    1,  174,    2, 0x08,
-      17,    1,  177,    2, 0x08,
-      18,    1,  180,    2, 0x08,
-      19,    1,  183,    2, 0x08,
-      20,    1,  186,    2, 0x08,
-      21,    0,  189,    2, 0x08,
-      22,    1,  190,    2, 0x08,
-      24,    0,  193,    2, 0x08,
-      25,    0,  194,    2, 0x08,
-      26,    0,  195,    2, 0x08,
-      27,    0,  196,    2, 0x08,
-      28,    0,  197,    2, 0x08,
-      29,    0,  198,    2, 0x08,
-      30,    0,  199,    2, 0x08,
-      31,    0,  200,    2, 0x08,
-      32,    0,  201,    2, 0x08,
+       4,    0,  157,    2, 0x08,
+       5,    0,  158,    2, 0x08,
+       6,    0,  159,    2, 0x08,
+       7,    1,  160,    2, 0x08,
+       9,    1,  163,    2, 0x08,
+      10,    0,  166,    2, 0x08,
+      11,    1,  167,    2, 0x08,
+      12,    1,  170,    2, 0x08,
+      14,    1,  173,    2, 0x08,
+      15,    1,  176,    2, 0x08,
+      16,    1,  179,    2, 0x08,
+      17,    1,  182,    2, 0x08,
+      18,    1,  185,    2, 0x08,
+      19,    1,  188,    2, 0x08,
+      20,    1,  191,    2, 0x08,
+      21,    0,  194,    2, 0x08,
+      22,    1,  195,    2, 0x08,
+      24,    0,  198,    2, 0x08,
+      25,    0,  199,    2, 0x08,
+      26,    0,  200,    2, 0x08,
+      27,    0,  201,    2, 0x08,
+      28,    0,  202,    2, 0x08,
+      29,    0,  203,    2, 0x08,
+      30,    0,  204,    2, 0x08,
+      31,    0,  205,    2, 0x08,
+      32,    0,  206,    2, 0x08,
+      33,    0,  207,    2, 0x08,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QString,    3,
@@ -156,6 +158,7 @@ static const uint qt_meta_data_MainWindow[] = {
     QMetaType::Void, QMetaType::QString,    8,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Int,   23,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -201,6 +204,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 24: _t->on_CreateImageTable_clicked(); break;
         case 25: _t->on_CreatePlayerTable_clicked(); break;
         case 26: _t->on_pushButton_7_clicked(); break;
+        case 27: _t->on_SearchNumber_clicked(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -240,13 +244,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 27)
+        if (_id < 28)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 27;
+        _id -= 28;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 27)
+        if (_id < 28)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 27;
+        _id -= 28;
     }
     return _id;
 }

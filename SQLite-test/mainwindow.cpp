@@ -4,7 +4,9 @@
 #include "ClickableLabel.h"
 #include <QFileDialog>
 #include <QDate>
+#include <QFileInfoList>
 #include <iostream>
+#include <QFile>
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -390,7 +392,7 @@ void MainWindow::on_CreatePlayerTable_clicked()
 void MainWindow::on_pushButton_7_clicked()
 {
     // cliquer sur suppression de la photo
-    if (db_manage->deleteImage(ui->urlSelectLabel->url_select))
+    if (db_manage->deleteImage(ui->urlSelectLabel->url_select->at(ui->urlSelectLabel->current_image)))
     {
         ui->urlSelectLabel->setText("Image correctement supprimée");
         // rendre les bouttons inaccessibles
@@ -407,4 +409,87 @@ void MainWindow::on_pushButton_7_clicked()
     {
         ui->urlSelectLabel->setText("L'image n'a pas être supprimée ");
     }
+}
+
+void MainWindow::on_SearchNumber_clicked()
+{
+    // test de la recherche ...
+
+    QDir *dir = new QDir(QDir::current());
+    dir->cd ("..");
+    dir->cd("Images");
+    QStringList filters;
+    filters << "*.png" << "*.jpg" << "*.bmp" << "*.ppm";
+    QFileInfoList fileInfoList = dir->entryInfoList(filters, QDir::Files|QDir::NoDotAndDotDot);
+
+
+
+    QFileInfoList::iterator it;
+
+    QStringList* url_founded = new QStringList();
+
+
+    for (it = fileInfoList.begin(); it != fileInfoList.end(); it++)
+    {
+        std::cout << (*it).absoluteFilePath().toStdString() << std::endl;
+        QString command ("../Reconnaissance/./Morpho ");
+        command.append((*it).absoluteFilePath() );
+
+//        std::cout << command.toStdString() << std::endl;
+
+        system(command.toStdString().c_str());
+
+        // ensuite on applique le tesseract
+
+
+        system("tesseract final.ppm out -psm 9");
+
+        QFile f("out.txt");
+
+        if (f.open(QIODevice::ReadWrite))
+        {
+
+            QTextStream in(&f);
+            while (!in.atEnd())
+            {
+              QString line = in.readLine();
+              line.replace("\\","1");
+              line.replace("/","1");
+              line.replace("|","1");
+              line.replace("_","1");
+              std::cout << line.toStdString() << std::endl;
+              if (line.toInt() == ui->CurrentNumber->value())
+              {
+                  // ajout à la liste des images à afficher
+                  url_founded->append((*it).absoluteFilePath());
+
+              }
+            }
+            f.close();
+
+        }
+
+        system ("rm *.ppm out.txt");
+
+
+
+
+
+
+    }
+//    system("Morph ")
+
+    if (url_founded->size() == 0)
+    {
+        ui->ocr_found->setText("Aucune image ne correspond à votre recherche dans la base de donnée");
+    }
+    else
+    {
+        ui->ocr_found->url_select = url_founded;
+        emit (urlChanged(url_founded->at(0)));
+        // gérer le fait que plusieurs images peuvent correspondre à la requête
+        ui->ocr_found->setPixmap(url_founded->at(0));
+        ui->ocr_found->current_image = 0;
+    }
+
 }

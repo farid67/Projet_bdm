@@ -90,6 +90,15 @@ public:
     QSpacerItem *horizontalSpacer_4;
     QPushButton *ModifyImagepushButton;
     QSpacerItem *horizontalSpacer_5;
+    QWidget *tab_4;
+    QWidget *verticalLayoutWidget;
+    QVBoxLayout *verticalLayout_16;
+    ClickableLabel *ocr_found;
+    QWidget *horizontalLayoutWidget;
+    QHBoxLayout *horizontalLayout_2;
+    QLabel *label_7;
+    QSpinBox *CurrentNumber;
+    QPushButton *SearchNumber;
     QWidget *tab_3;
     QWidget *gridLayoutWidget_6;
     QGridLayout *gridLayout_6;
@@ -426,6 +435,7 @@ public:
         gridLayout_5->setContentsMargins(0, 0, 0, 0);
         pushButton_7 = new QPushButton(gridLayoutWidget_5);
         pushButton_7->setObjectName(QStringLiteral("pushButton_7"));
+        pushButton_7->setEnabled(false);
 
         gridLayout_5->addWidget(pushButton_7, 0, 3, 1, 1);
 
@@ -439,6 +449,7 @@ public:
 
         ModifyImagepushButton = new QPushButton(gridLayoutWidget_5);
         ModifyImagepushButton->setObjectName(QStringLiteral("ModifyImagepushButton"));
+        ModifyImagepushButton->setEnabled(false);
 
         gridLayout_5->addWidget(ModifyImagepushButton, 0, 1, 1, 1);
 
@@ -447,6 +458,50 @@ public:
         gridLayout_5->addItem(horizontalSpacer_5, 0, 0, 1, 1);
 
         AcceuilOnglet->addTab(tab_2, QString());
+        tab_4 = new QWidget();
+        tab_4->setObjectName(QStringLiteral("tab_4"));
+        verticalLayoutWidget = new QWidget(tab_4);
+        verticalLayoutWidget->setObjectName(QStringLiteral("verticalLayoutWidget"));
+        verticalLayoutWidget->setGeometry(QRect(60, 40, 551, 361));
+        verticalLayout_16 = new QVBoxLayout(verticalLayoutWidget);
+        verticalLayout_16->setSpacing(6);
+        verticalLayout_16->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_16->setObjectName(QStringLiteral("verticalLayout_16"));
+        verticalLayout_16->setContentsMargins(0, 0, 0, 0);
+        ocr_found = new ClickableLabel(verticalLayoutWidget);
+        ocr_found->setObjectName(QStringLiteral("ocr_found"));
+        ocr_found->setAlignment(Qt::AlignCenter);
+
+        verticalLayout_16->addWidget(ocr_found);
+
+        horizontalLayoutWidget = new QWidget(tab_4);
+        horizontalLayoutWidget->setObjectName(QStringLiteral("horizontalLayoutWidget"));
+        horizontalLayoutWidget->setGeometry(QRect(60, 10, 549, 31));
+        horizontalLayout_2 = new QHBoxLayout(horizontalLayoutWidget);
+        horizontalLayout_2->setSpacing(6);
+        horizontalLayout_2->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
+        horizontalLayout_2->setSizeConstraint(QLayout::SetMinimumSize);
+        horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
+        label_7 = new QLabel(horizontalLayoutWidget);
+        label_7->setObjectName(QStringLiteral("label_7"));
+        label_7->setMaximumSize(QSize(16777215, 30));
+
+        horizontalLayout_2->addWidget(label_7);
+
+        CurrentNumber = new QSpinBox(horizontalLayoutWidget);
+        CurrentNumber->setObjectName(QStringLiteral("CurrentNumber"));
+        CurrentNumber->setMinimum(1);
+
+        horizontalLayout_2->addWidget(CurrentNumber);
+
+        SearchNumber = new QPushButton(horizontalLayoutWidget);
+        SearchNumber->setObjectName(QStringLiteral("SearchNumber"));
+        SearchNumber->setMaximumSize(QSize(40, 16777215));
+
+        horizontalLayout_2->addWidget(SearchNumber);
+
+        AcceuilOnglet->addTab(tab_4, QString());
         tab_3 = new QWidget();
         tab_3->setObjectName(QStringLiteral("tab_3"));
         gridLayoutWidget_6 = new QWidget(tab_3);
@@ -655,7 +710,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        AcceuilOnglet->setCurrentIndex(2);
+        AcceuilOnglet->setCurrentIndex(3);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -691,6 +746,10 @@ public:
         pushButton_7->setText(QApplication::translate("MainWindow", "Delete item", 0));
         ModifyImagepushButton->setText(QApplication::translate("MainWindow", "Modify item", 0));
         AcceuilOnglet->setTabText(AcceuilOnglet->indexOf(tab_2), QApplication::translate("MainWindow", "Bdd_elements", 0));
+        ocr_found->setText(QApplication::translate("MainWindow", "Aucune image ne correspond \303\240 votre recherche.", 0));
+        label_7->setText(QApplication::translate("MainWindow", "Num\303\251ro du joueur recherch\303\251 :", 0));
+        SearchNumber->setText(QApplication::translate("MainWindow", "Ok", 0));
+        AcceuilOnglet->setTabText(AcceuilOnglet->indexOf(tab_4), QApplication::translate("MainWindow", "Reconnaissance", 0));
         DeleteAlltoolButton->setText(QApplication::translate("MainWindow", "Delete all images from the database", 0));
         DeleteAllPlayer->setText(QApplication::translate("MainWindow", "Delete all player from the database", 0));
         DeleteAllTables->setText(QApplication::translate("MainWindow", "Delete All Tables (do it only if you are sure)", 0));
