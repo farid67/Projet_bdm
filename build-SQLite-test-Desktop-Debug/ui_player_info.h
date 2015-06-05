@@ -54,7 +54,7 @@ public:
     QLabel *PlayerPosition;
     QLabel *PlayerMatchsPlayed;
     QLabel *PlayerGoals;
-    QWidget *tab1;
+    QWidget *tab_modif;
     QWidget *horizontalLayoutWidget_2;
     QHBoxLayout *horizontalLayout_2;
     QWidget *widget;
@@ -66,7 +66,7 @@ public:
     QGridLayout *gridLayout_2;
     QLabel *label_10;
     QLineEdit *PlayerFirstNameEdit;
-    QSpacerItem *horizontalSpacer_4;
+    QCheckBox *FirstNameCheckBox;
     QGridLayout *gridLayout_3;
     QLabel *label_11;
     QSpinBox *PlayerNumberEdit;
@@ -102,17 +102,20 @@ public:
     QLabel *label_17;
     QLineEdit *PwLineEdit;
     QPushButton *PwVerif;
+    QWidget *horizontalLayoutWidget_4;
+    QHBoxLayout *horizontalLayout_5;
+    QLabel *Informations;
 
     void setupUi(QTabWidget *Player_Info)
     {
         if (Player_Info->objectName().isEmpty())
             Player_Info->setObjectName(QStringLiteral("Player_Info"));
-        Player_Info->resize(423, 388);
+        Player_Info->resize(423, 439);
         tab = new QWidget();
         tab->setObjectName(QStringLiteral("tab"));
         horizontalLayoutWidget = new QWidget(tab);
         horizontalLayoutWidget->setObjectName(QStringLiteral("horizontalLayoutWidget"));
-        horizontalLayoutWidget->setGeometry(QRect(10, 10, 381, 251));
+        horizontalLayoutWidget->setGeometry(QRect(20, 60, 381, 251));
         horizontalLayout = new QHBoxLayout(horizontalLayoutWidget);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
@@ -215,11 +218,11 @@ public:
         horizontalLayout->addLayout(verticalLayout_2);
 
         Player_Info->addTab(tab, QString());
-        tab1 = new QWidget();
-        tab1->setObjectName(QStringLiteral("tab1"));
-        horizontalLayoutWidget_2 = new QWidget(tab1);
+        tab_modif = new QWidget();
+        tab_modif->setObjectName(QStringLiteral("tab_modif"));
+        horizontalLayoutWidget_2 = new QWidget(tab_modif);
         horizontalLayoutWidget_2->setObjectName(QStringLiteral("horizontalLayoutWidget_2"));
-        horizontalLayoutWidget_2->setGeometry(QRect(10, 50, 381, 258));
+        horizontalLayoutWidget_2->setGeometry(QRect(10, 50, 381, 267));
         horizontalLayout_2 = new QHBoxLayout(horizontalLayoutWidget_2);
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
         horizontalLayout_2->setContentsMargins(0, 0, 0, 0);
@@ -267,9 +270,15 @@ public:
 
         gridLayout_2->addWidget(PlayerFirstNameEdit, 0, 2, 1, 1);
 
-        horizontalSpacer_4 = new QSpacerItem(15, 10, QSizePolicy::Fixed, QSizePolicy::Minimum);
+        FirstNameCheckBox = new QCheckBox(widget);
+        FirstNameCheckBox->setObjectName(QStringLiteral("FirstNameCheckBox"));
+        QSizePolicy sizePolicy1(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(FirstNameCheckBox->sizePolicy().hasHeightForWidth());
+        FirstNameCheckBox->setSizePolicy(sizePolicy1);
 
-        gridLayout_2->addItem(horizontalSpacer_4, 0, 0, 1, 1);
+        gridLayout_2->addWidget(FirstNameCheckBox, 0, 0, 1, 1);
 
 
         verticalLayout_3->addLayout(gridLayout_2);
@@ -278,11 +287,11 @@ public:
         gridLayout_3->setObjectName(QStringLiteral("gridLayout_3"));
         label_11 = new QLabel(widget);
         label_11->setObjectName(QStringLiteral("label_11"));
-        QSizePolicy sizePolicy1(QSizePolicy::Minimum, QSizePolicy::Preferred);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(label_11->sizePolicy().hasHeightForWidth());
-        label_11->setSizePolicy(sizePolicy1);
+        QSizePolicy sizePolicy2(QSizePolicy::Minimum, QSizePolicy::Preferred);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(label_11->sizePolicy().hasHeightForWidth());
+        label_11->setSizePolicy(sizePolicy2);
         label_11->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
         gridLayout_3->addWidget(label_11, 0, 1, 1, 1);
@@ -298,11 +307,8 @@ public:
 
         NumeroCheckBox = new QCheckBox(widget);
         NumeroCheckBox->setObjectName(QStringLiteral("NumeroCheckBox"));
-        QSizePolicy sizePolicy2(QSizePolicy::Fixed, QSizePolicy::Fixed);
-        sizePolicy2.setHorizontalStretch(0);
-        sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(NumeroCheckBox->sizePolicy().hasHeightForWidth());
-        NumeroCheckBox->setSizePolicy(sizePolicy2);
+        sizePolicy1.setHeightForWidth(NumeroCheckBox->sizePolicy().hasHeightForWidth());
+        NumeroCheckBox->setSizePolicy(sizePolicy1);
 
         gridLayout_3->addWidget(NumeroCheckBox, 0, 0, 1, 1);
 
@@ -324,8 +330,8 @@ public:
 
         BirthDateCheckBox = new QCheckBox(widget);
         BirthDateCheckBox->setObjectName(QStringLiteral("BirthDateCheckBox"));
-        sizePolicy2.setHeightForWidth(BirthDateCheckBox->sizePolicy().hasHeightForWidth());
-        BirthDateCheckBox->setSizePolicy(sizePolicy2);
+        sizePolicy1.setHeightForWidth(BirthDateCheckBox->sizePolicy().hasHeightForWidth());
+        BirthDateCheckBox->setSizePolicy(sizePolicy1);
 
         gridLayout->addWidget(BirthDateCheckBox, 0, 0, 1, 1);
 
@@ -349,8 +355,8 @@ public:
 
         YearArrivalCheckBox = new QCheckBox(widget);
         YearArrivalCheckBox->setObjectName(QStringLiteral("YearArrivalCheckBox"));
-        sizePolicy2.setHeightForWidth(YearArrivalCheckBox->sizePolicy().hasHeightForWidth());
-        YearArrivalCheckBox->setSizePolicy(sizePolicy2);
+        sizePolicy1.setHeightForWidth(YearArrivalCheckBox->sizePolicy().hasHeightForWidth());
+        YearArrivalCheckBox->setSizePolicy(sizePolicy1);
 
         gridLayout_5->addWidget(YearArrivalCheckBox, 0, 0, 1, 1);
 
@@ -372,8 +378,8 @@ public:
 
         PositionCheckBox = new QCheckBox(widget);
         PositionCheckBox->setObjectName(QStringLiteral("PositionCheckBox"));
-        sizePolicy2.setHeightForWidth(PositionCheckBox->sizePolicy().hasHeightForWidth());
-        PositionCheckBox->setSizePolicy(sizePolicy2);
+        sizePolicy1.setHeightForWidth(PositionCheckBox->sizePolicy().hasHeightForWidth());
+        PositionCheckBox->setSizePolicy(sizePolicy1);
 
         gridLayout_6->addWidget(PositionCheckBox, 0, 0, 1, 1);
 
@@ -396,8 +402,8 @@ public:
 
         MatchsCheckBox = new QCheckBox(widget);
         MatchsCheckBox->setObjectName(QStringLiteral("MatchsCheckBox"));
-        sizePolicy2.setHeightForWidth(MatchsCheckBox->sizePolicy().hasHeightForWidth());
-        MatchsCheckBox->setSizePolicy(sizePolicy2);
+        sizePolicy1.setHeightForWidth(MatchsCheckBox->sizePolicy().hasHeightForWidth());
+        MatchsCheckBox->setSizePolicy(sizePolicy1);
 
         gridLayout_7->addWidget(MatchsCheckBox, 0, 0, 1, 1);
 
@@ -420,8 +426,8 @@ public:
 
         GoalsCheckBox = new QCheckBox(widget);
         GoalsCheckBox->setObjectName(QStringLiteral("GoalsCheckBox"));
-        sizePolicy2.setHeightForWidth(GoalsCheckBox->sizePolicy().hasHeightForWidth());
-        GoalsCheckBox->setSizePolicy(sizePolicy2);
+        sizePolicy1.setHeightForWidth(GoalsCheckBox->sizePolicy().hasHeightForWidth());
+        GoalsCheckBox->setSizePolicy(sizePolicy1);
 
         gridLayout_8->addWidget(GoalsCheckBox, 0, 0, 1, 1);
 
@@ -431,7 +437,7 @@ public:
 
         horizontalLayout_2->addWidget(widget);
 
-        verticalLayoutWidget = new QWidget(tab1);
+        verticalLayoutWidget = new QWidget(tab_modif);
         verticalLayoutWidget->setObjectName(QStringLiteral("verticalLayoutWidget"));
         verticalLayoutWidget->setGeometry(QRect(10, 310, 381, 31));
         verticalLayout_5 = new QVBoxLayout(verticalLayoutWidget);
@@ -455,7 +461,7 @@ public:
 
         verticalLayout_5->addLayout(horizontalLayout_3);
 
-        horizontalLayoutWidget_3 = new QWidget(tab1);
+        horizontalLayoutWidget_3 = new QWidget(tab_modif);
         horizontalLayoutWidget_3->setObjectName(QStringLiteral("horizontalLayoutWidget_3"));
         horizontalLayoutWidget_3->setGeometry(QRect(10, 10, 381, 31));
         horizontalLayout_4 = new QHBoxLayout(horizontalLayoutWidget_3);
@@ -478,7 +484,19 @@ public:
 
         horizontalLayout_4->addWidget(PwVerif);
 
-        Player_Info->addTab(tab1, QString());
+        horizontalLayoutWidget_4 = new QWidget(tab_modif);
+        horizontalLayoutWidget_4->setObjectName(QStringLiteral("horizontalLayoutWidget_4"));
+        horizontalLayoutWidget_4->setGeometry(QRect(10, 350, 381, 41));
+        horizontalLayout_5 = new QHBoxLayout(horizontalLayoutWidget_4);
+        horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
+        horizontalLayout_5->setContentsMargins(0, 0, 0, 0);
+        Informations = new QLabel(horizontalLayoutWidget_4);
+        Informations->setObjectName(QStringLiteral("Informations"));
+        Informations->setEnabled(false);
+
+        horizontalLayout_5->addWidget(Informations);
+
+        Player_Info->addTab(tab_modif, QString());
 
         retranslateUi(Player_Info);
 
@@ -510,6 +528,7 @@ public:
         Player_Info->setTabText(Player_Info->indexOf(tab), QApplication::translate("Player_Info", "Info", 0));
         label_9->setText(QApplication::translate("Player_Info", "Nom :", 0));
         label_10->setText(QApplication::translate("Player_Info", "Prenom :", 0));
+        FirstNameCheckBox->setText(QString());
         label_11->setText(QApplication::translate("Player_Info", "Numero :", 0));
         NumeroCheckBox->setText(QString());
         label_12->setText(QApplication::translate("Player_Info", "Date de naissance :", 0));
@@ -532,7 +551,8 @@ public:
         SetModifButton->setText(QApplication::translate("Player_Info", "Set modifications", 0));
         label_17->setText(QApplication::translate("Player_Info", "Password :", 0));
         PwVerif->setText(QApplication::translate("Player_Info", "Ok", 0));
-        Player_Info->setTabText(Player_Info->indexOf(tab1), QApplication::translate("Player_Info", "Modif (Admin)", 0));
+        Informations->setText(QString());
+        Player_Info->setTabText(Player_Info->indexOf(tab_modif), QApplication::translate("Player_Info", "Modif (Admin)", 0));
     } // retranslateUi
 
 };

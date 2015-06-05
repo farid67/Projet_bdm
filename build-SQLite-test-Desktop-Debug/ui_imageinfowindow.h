@@ -88,7 +88,7 @@ public:
 
         verticalLayoutWidget_2 = new QWidget(ImageInfoWindow);
         verticalLayoutWidget_2->setObjectName(QStringLiteral("verticalLayoutWidget_2"));
-        verticalLayoutWidget_2->setGeometry(QRect(20, 270, 381, 80));
+        verticalLayoutWidget_2->setGeometry(QRect(20, 270, 381, 101));
         verticalLayout_2 = new QVBoxLayout(verticalLayoutWidget_2);
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
         verticalLayout_2->setContentsMargins(0, 0, 0, 0);

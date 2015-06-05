@@ -96,6 +96,12 @@ public:
     QGridLayout *gridLayout_8;
     QVBoxLayout *verticalLayout_14;
     QToolButton *DeleteAlltoolButton;
+    QPushButton *DeleteAllPlayer;
+    QPushButton *DeleteAllTables;
+    QPushButton *DeleteImageTable;
+    QPushButton *CreateImageTable;
+    QPushButton *DeletePlayerTable;
+    QPushButton *CreatePlayerTable;
     QLabel *DeleteLabel;
     QGridLayout *gridLayout_7;
     QVBoxLayout *verticalLayout_12;
@@ -104,6 +110,7 @@ public:
     QLabel *label_5;
     QHBoxLayout *horizontalLayout;
     QPushButton *AdminpushButton;
+    QLabel *WarningInfo;
     QWidget *tab;
     QWidget *gridLayoutWidget_3;
     QGridLayout *gridLayout_3;
@@ -147,7 +154,7 @@ public:
         verticalLayout_3->setContentsMargins(0, 0, 0, 0);
         label_4 = new QLabel(verticalLayoutWidget_2);
         label_4->setObjectName(QStringLiteral("label_4"));
-        label_4->setMaximumSize(QSize(16777215, 20));
+        label_4->setMaximumSize(QSize(16777215, 30));
         QFont font;
         font.setBold(true);
         font.setWeight(75);
@@ -302,7 +309,7 @@ public:
         tab_2->setObjectName(QStringLiteral("tab_2"));
         gridLayoutWidget_4 = new QWidget(tab_2);
         gridLayoutWidget_4->setObjectName(QStringLiteral("gridLayoutWidget_4"));
-        gridLayoutWidget_4->setGeometry(QRect(560, 20, 111, 331));
+        gridLayoutWidget_4->setGeometry(QRect(560, 20, 113, 331));
         gridLayout_4 = new QGridLayout(gridLayoutWidget_4);
         gridLayout_4->setSpacing(6);
         gridLayout_4->setContentsMargins(11, 11, 11, 11);
@@ -470,10 +477,40 @@ public:
 
         verticalLayout_14->addWidget(DeleteAlltoolButton);
 
+        DeleteAllPlayer = new QPushButton(gridLayoutWidget_6);
+        DeleteAllPlayer->setObjectName(QStringLiteral("DeleteAllPlayer"));
+
+        verticalLayout_14->addWidget(DeleteAllPlayer);
+
+        DeleteAllTables = new QPushButton(gridLayoutWidget_6);
+        DeleteAllTables->setObjectName(QStringLiteral("DeleteAllTables"));
+
+        verticalLayout_14->addWidget(DeleteAllTables);
+
+        DeleteImageTable = new QPushButton(gridLayoutWidget_6);
+        DeleteImageTable->setObjectName(QStringLiteral("DeleteImageTable"));
+
+        verticalLayout_14->addWidget(DeleteImageTable);
+
+        CreateImageTable = new QPushButton(gridLayoutWidget_6);
+        CreateImageTable->setObjectName(QStringLiteral("CreateImageTable"));
+
+        verticalLayout_14->addWidget(CreateImageTable);
+
+        DeletePlayerTable = new QPushButton(gridLayoutWidget_6);
+        DeletePlayerTable->setObjectName(QStringLiteral("DeletePlayerTable"));
+
+        verticalLayout_14->addWidget(DeletePlayerTable);
+
+        CreatePlayerTable = new QPushButton(gridLayoutWidget_6);
+        CreatePlayerTable->setObjectName(QStringLiteral("CreatePlayerTable"));
+
+        verticalLayout_14->addWidget(CreatePlayerTable);
+
         DeleteLabel = new QLabel(gridLayoutWidget_6);
         DeleteLabel->setObjectName(QStringLiteral("DeleteLabel"));
-        sizePolicy1.setHeightForWidth(DeleteLabel->sizePolicy().hasHeightForWidth());
-        DeleteLabel->setSizePolicy(sizePolicy1);
+        DeleteLabel->setEnabled(false);
+        DeleteLabel->setFont(font);
         DeleteLabel->setAlignment(Qt::AlignCenter);
 
         verticalLayout_14->addWidget(DeleteLabel);
@@ -482,7 +519,7 @@ public:
         gridLayout_8->addLayout(verticalLayout_14, 0, 0, 1, 1);
 
 
-        gridLayout_6->addLayout(gridLayout_8, 1, 0, 1, 1);
+        gridLayout_6->addLayout(gridLayout_8, 2, 0, 1, 1);
 
         gridLayout_7 = new QGridLayout();
         gridLayout_7->setSpacing(6);
@@ -536,6 +573,14 @@ public:
 
 
         gridLayout_7->addLayout(horizontalLayout, 1, 1, 1, 2);
+
+        WarningInfo = new QLabel(gridLayoutWidget_6);
+        WarningInfo->setObjectName(QStringLiteral("WarningInfo"));
+        WarningInfo->setEnabled(false);
+        WarningInfo->setFont(font);
+        WarningInfo->setAlignment(Qt::AlignCenter);
+
+        gridLayout_7->addWidget(WarningInfo, 2, 1, 1, 2);
 
 
         gridLayout_6->addLayout(gridLayout_7, 0, 0, 1, 1);
@@ -647,9 +692,16 @@ public:
         ModifyImagepushButton->setText(QApplication::translate("MainWindow", "Modify item", 0));
         AcceuilOnglet->setTabText(AcceuilOnglet->indexOf(tab_2), QApplication::translate("MainWindow", "Bdd_elements", 0));
         DeleteAlltoolButton->setText(QApplication::translate("MainWindow", "Delete all images from the database", 0));
+        DeleteAllPlayer->setText(QApplication::translate("MainWindow", "Delete all player from the database", 0));
+        DeleteAllTables->setText(QApplication::translate("MainWindow", "Delete All Tables (do it only if you are sure)", 0));
+        DeleteImageTable->setText(QApplication::translate("MainWindow", "Delete Image Table", 0));
+        CreateImageTable->setText(QApplication::translate("MainWindow", "Recreate Image Table (this will only work if you have delete it before)", 0));
+        DeletePlayerTable->setText(QApplication::translate("MainWindow", "Delete Player Table", 0));
+        CreatePlayerTable->setText(QApplication::translate("MainWindow", "Recreate Player Table (this will only work if you have delete it before)", 0));
         DeleteLabel->setText(QString());
         label_5->setText(QApplication::translate("MainWindow", "Mot de Passe :", 0));
         AdminpushButton->setText(QApplication::translate("MainWindow", "Verification", 0));
+        WarningInfo->setText(QApplication::translate("MainWindow", "Be careful of operations that you will do here, all operations are unchangeable.", 0));
         AcceuilOnglet->setTabText(AcceuilOnglet->indexOf(tab_3), QApplication::translate("MainWindow", "Admin", 0));
         label_3->setText(QApplication::translate("MainWindow", "A noter que les cr\303\251ateurs de ce projet ne r\303\251clament aucuns droits sur les photos utilis\303\251es. \n"
 " Pour retrouver les droits relatifs aux photos, se referrer au fichier copyright.txt", 0));

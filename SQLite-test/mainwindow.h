@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QTabWidget>
 #include "db.h"
 #include "ClickableLabel.h"
 #include "imageinfowindow.h"
@@ -62,6 +63,22 @@ private slots:
     void on_DeleteAlltoolButton_clicked();
 
     void on_Admin_pwlineEdit_returnPressed();
+
+    void on_DeleteAllPlayer_clicked();
+
+    void on_DeleteAllTables_clicked();
+
+    void on_DeleteImageTable_clicked();
+
+    void on_DeletePlayerTable_clicked();
+
+    void on_CreateImageTable_clicked();
+
+    void on_CreatePlayerTable_clicked();
+
+    // void on_ModifyImagepushButton_clicked(); // Cette fonction est inutile (voir explication dans le code source)
+
+    void on_pushButton_7_clicked();
 
 signals:
     void urlChanged(const QString& new_url);

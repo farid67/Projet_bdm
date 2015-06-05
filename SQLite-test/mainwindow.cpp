@@ -23,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
             std::cout << "Error while creating db" << std::endl;
 //    else
 //       std::cout << "Base de données correctement ouverte" << std::endl;
-    if(db_manage->createImageTable())
+    if(db_manage->createImageTable() && db_manage->createPlayerTable())
         std::cout << "table Image et Player correctement créées " << std::endl;
     // création chaine vide
     file_url = new QString();
@@ -55,18 +55,29 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
     ui->DeleteAlltoolButton->setVisible(false); // sera visible uniquement lorsque le mot de passe sera correct
-    ui->DeleteAlltoolButton->setIcon(QIcon("../warningIcon.png"));
+    ui->DeleteAllTables->setVisible(false);
+    ui->DeleteAllPlayer->setVisible(false);
+    ui->DeleteImageTable->setVisible(false);
+    ui->DeletePlayerTable->setVisible(false);
+    ui->CreateImageTable->setVisible(false);
+    ui->CreatePlayerTable->setVisible(false);
+    ui->DeleteAlltoolButton->setIcon(QIcon("../warningIcon")); // attention ne pas ajouter l'extension lors de la création de l'icone
 
     ImageInfo = new ImageInfoWindow(db_manage,this);
 
     connect(ui->ModifyImagepushButton,SIGNAL(clicked()),this,SLOT(openImageInfo()));
 
-    // il faut toujours passer par une connection pour modifier le contenu de la boite de dialogue à partir de la classe courante
+        // il faut toujours passer par une connection pour modifier le contenu de la boite de dialogue à partir de la classe courante
+
+    // connection pour modifier le contenu de l'url de la photo courante
     connect(this,SIGNAL(urlChanged(const QString&)),ImageInfo,SLOT(urlModif(const QString&)));
     // modification de la liste des joueurs présent sur la photo, on créera des liens vers une fenêtre d'info/modif
     // sur les informations du joueur
     connect(this,SIGNAL(urlChanged(const QString&)),ImageInfo,SLOT(insertPlayerItem(const QString&)));
     connect(ui->urlSelectLabel,SIGNAL(urlChanged(const QString&)),ImageInfo,SLOT(insertPlayerItem(const QString&)));
+
+    // modifier l'onglet courant
+    ui->AcceuilOnglet->setCurrentIndex(0);
 
 }
 
@@ -95,7 +106,13 @@ void MainWindow::on_pushButton_3_clicked()
 //    std::cout << fileNames.front().toStdString()<< std::endl;
     if (!fileNames.empty())
     {
-        file_url = new QString (fileNames.front());
+//        file_url = new QString (fileNames.front());
+//        std::cout << " on tente de récupérer le nom du fichier en référence relative au lieu du lancement de l'application" << std::endl;
+//        std::cout << "relative path " << QDir::current().relativeFilePath(*file_url).toStdString()<< std::endl;
+
+        file_url = new QString (QDir::current().relativeFilePath(fileNames.front()));
+
+
         ui->urlInsertLabel->setPixmap(QPixmap(*file_url));
 
         std::cout << "url de l'image selectionnée"<< file_url->toStdString() << std::endl;
@@ -106,7 +123,7 @@ void MainWindow::on_pushButton_4_clicked()
 {
     std::cout << "clic on \"insert in bdd\" button " << std::endl ;
 
-    // envoyer l'url au databaseManager
+    // on commence par récupérer le nom du joueur que l'on a entré au préalable
     player_name_Insert = new QString(ui->lineEdit_2->text());
 
     if (file_url->size() != 0)
@@ -153,6 +170,10 @@ void MainWindow::on_SearchpushButton_clicked()
         // gérer le fait que plusieurs images peuvent correspondre à la requête
         ui->urlSelectLabel->setPixmap(url_founded->at(0));
         ui->urlSelectLabel->current_image = 0;
+
+        // on déverouille les boutons
+        ui->ModifyImagepushButton->setEnabled(true);
+        ui->pushButton_7->setEnabled(true);
     }
 }
 
@@ -252,6 +273,12 @@ void MainWindow::on_AdminpushButton_clicked()
     if (ui->Admin_pwlineEdit->text() == "fcb2015")
     {
         ui->DeleteAlltoolButton->setVisible(true);
+        ui->DeleteAllPlayer->setVisible(true);
+        ui->DeleteAllTables->setVisible(true);
+        ui->DeletePlayerTable->setVisible(true);
+        ui->DeleteImageTable->setVisible(true);
+        ui->CreateImageTable->setVisible(true);
+        ui->CreatePlayerTable->setVisible(true);
         ui->AdminpushButton->setEnabled(false);
         ui->Admin_pwlineEdit->clear();
     }
@@ -271,6 +298,14 @@ void MainWindow::on_AcceuilOnglet_currentChanged(int index)
     if (index != 1) // New image
     {
         ui->urlSelectLabel->setText("Aucune image séléctionnée pour le moment");
+        ui->ModifyImagepushButton->setEnabled(false);
+        ui->pushButton_7->setEnabled(false);
+        ui->NameSearchLineEdit->clear();
+        ui->NumeroSelectCheckBox->setChecked(false);
+        ui->NumeroSelectSpinBox_4->clear();
+        ui->AnneeSelectCheckBox->setChecked(false);
+        ui->AnneeSearchSpinBox->clear();
+        ui->SearchpushButton->setEnabled(false);
     }
 }
 
@@ -289,4 +324,87 @@ void MainWindow::on_Admin_pwlineEdit_returnPressed()
 {
     // simuler un clic sur le bouton "Vérification"
     on_AdminpushButton_clicked();
+}
+
+void MainWindow::on_DeleteAllPlayer_clicked()
+{
+    // supprimer tous les joueurs de la table Player
+    if (db_manage->suppressPlayers())
+    {
+        ui->DeleteLabel->setText("Tous les joueurs ont été correctement supprimés de la base");
+    }
+    else
+        ui->DeleteLabel->setText("Problème lors de la suppression...");
+}
+
+void MainWindow::on_DeleteAllTables_clicked()
+{
+    if (db_manage->dropAllTables())
+        ui->DeleteLabel->setText("Les tables ont correctement étés supprimées de la base de donnée");
+    else
+        ui->DeleteLabel->setText("Problème lors de la suppression des tables... ");
+}
+
+
+
+void MainWindow::on_DeleteImageTable_clicked()
+{
+    if (db_manage->dropImageTable())
+        ui->DeleteLabel->setText("La table Image a correctement été supprimée de la base de donnée");
+    else
+        ui->DeleteLabel->setText("Problème lors de la suppression... ");
+}
+
+void MainWindow::on_DeletePlayerTable_clicked()
+{
+    if (db_manage->dropPlayerTable())
+        ui->DeleteLabel->setText("La table Joueur a correctement été supprimée de la base de donnée");
+    else
+        ui->DeleteLabel->setText("Problème lors de la suppression... ");
+}
+
+void MainWindow::on_CreateImageTable_clicked()
+{
+    if (db_manage->createImageTable())
+        ui->DeleteLabel->setText("La table Image a correctement été recréée dans la base de donnée");
+    else
+        ui->DeleteLabel->setText("Problème lors de la création... ");
+}
+
+void MainWindow::on_CreatePlayerTable_clicked()
+{
+    if (db_manage->createPlayerTable())
+        ui->DeleteLabel->setText("La table Joueur a correctement été recréée dans la base de donnée");
+    else
+        ui->DeleteLabel->setText("Problème lors de la création... ");
+}
+
+// Cette fonction n'est pas utile car l'ouverture de la fenêtre d'informations sur les joueurs se fait avec un CONNECT entre cette classe et la classe ImageInfoWindow
+// la fonction permettant d'émettre le signal et le clic sur le bouton de modification de l'image "modifyImage"
+
+//void MainWindow::on_ModifyImagepushButton_clicked()
+//{
+
+//}
+
+void MainWindow::on_pushButton_7_clicked()
+{
+    // cliquer sur suppression de la photo
+    if (db_manage->deleteImage(ui->urlSelectLabel->url_select))
+    {
+        ui->urlSelectLabel->setText("Image correctement supprimée");
+        // rendre les bouttons inaccessibles
+        ui->ModifyImagepushButton->setEnabled(false);
+        ui->pushButton_7->setEnabled(false);
+        ui->NameSearchLineEdit->clear();
+        ui->NumeroSelectCheckBox->setChecked(false);
+        ui->NumeroSelectSpinBox_4->clear();
+        ui->AnneeSelectCheckBox->setChecked(false);
+        ui->AnneeSearchSpinBox->clear();
+        ui->SearchpushButton->setEnabled(false);
+    }
+    else
+    {
+        ui->urlSelectLabel->setText("L'image n'a pas être supprimée ");
+    }
 }

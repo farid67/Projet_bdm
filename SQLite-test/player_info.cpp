@@ -11,6 +11,14 @@ Player_Info::Player_Info(DatabaseManager* db, QWidget *parent) :
 
     //rendre par défaut tout les champs contenus dans la partie admin non éditable
     setAttributsEditable(false);
+    setCurrentIndex(0);// par défaut on ouvre l'application sur l'onglet d'informations
+    ui->PlayerFirstNameEdit->clear();
+    ui->PlayerDateOfBirth->clear();
+    ui->PlayerGoalsEdit->clear();
+    ui->PlayerMatchsPlayedEdit->clear();
+    ui->PlayerNumberEdit->clear();
+    ui->PlayerPositionEdit->setCurrentIndex(-1);
+    ui->PlayerYearArrivalEdit->clear();
     this->db= db;
 
 }
@@ -25,6 +33,16 @@ void Player_Info::setAttributsEditable(bool b)
     ui->PlayerNumberEdit->setEnabled(b);
     ui->PlayerPositionEdit->setEnabled(b);
     ui->PlayerYearArrivalEdit->setEnabled(b);
+
+
+    // décocher toutes les cases
+    ui->BirthDateCheckBox->setChecked(false);
+    ui->FirstNameCheckBox->setChecked(false);
+    ui->GoalsCheckBox->setChecked(false);
+    ui->MatchsCheckBox->setChecked(false);
+    ui->NumeroCheckBox->setChecked(false);
+    ui->PositionCheckBox->setChecked(false);
+    ui->YearArrivalCheckBox->setChecked(false);
 }
 
 Player_Info::~Player_Info()
@@ -80,22 +98,22 @@ void Player_Info::modifiePoste(const QVariant &poste)
     else
     {
         // problème comparaison
-        if (poste.toString().toStdString() == "G")
+        if (poste.toString().toStdString().at(0) == 'G') // les "ou" sont là pour la mise à jour des informations depuis l'onglet de modif
         {
             ui->PlayerPosition->setText("Gardien");
             ui->PlayerPositionEdit->setCurrentIndex(0);
         }
-        if (poste.toString().toStdString() == "D")
+        if (poste.toString().toStdString().at(0) == 'D')
         {
             ui->PlayerPosition->setText("Defenseur");
             ui->PlayerPositionEdit->setCurrentIndex(1);
         }
-        if (poste.toString().toStdString() == "M")
+        if (poste.toString().toStdString().at(0) == 'M')
         {
             ui->PlayerPosition->setText("Milieu");
             ui->PlayerPositionEdit->setCurrentIndex(2);
         }
-        if (poste.toString().toStdString() == "A")
+        if (poste.toString().toStdString().at(0) == 'A')
         {
             ui->PlayerPosition->setText("Attaquant");
             ui->PlayerPositionEdit->setCurrentIndex(3);
@@ -221,8 +239,9 @@ void Player_Info::on_SetModifButton_clicked()
     player_info->insert(std::pair<QString,QVariant>("nom",QVariant(ui->PlayerNameEdit->text())));
 
     // vérifier que si le prénom du joueur n'est pas spécifié, le QVariant en question sera un pointeur null
-    player_info->insert(std::pair<QString,QVariant>("prenom",QVariant(ui->PlayerFirstNameEdit->text())));
-
+    if (ui->FirstNameCheckBox->isChecked())
+        player_info->insert(std::pair<QString,QVariant>("prenom",QVariant(ui->PlayerFirstNameEdit->text())));
+    // else -> le champ n'existera pas dans la map
 
     // vérifier que la case numéro est bien cochée
     if (ui->NumeroCheckBox->isChecked())
@@ -249,10 +268,27 @@ void Player_Info::on_SetModifButton_clicked()
         player_info->insert(std::pair<QString,QVariant>("nb_buts",QVariant(ui->PlayerGoalsEdit->value())));
     // laisser le champ inexistant sinon
 
+    if (ui->YearArrivalCheckBox->isChecked())
+        player_info->insert(std::pair<QString,QVariant>("annee_arrivee",QVariant(ui->PlayerYearArrivalEdit->value())));
+
 
     // envoyer la map au db manager
 
-    db->updatePlayer(player_info);
+    if (db->updatePlayer(player_info))
+    {
+        //changement d'onglet avec mise à jour des informations sur le joueur
+        updatePlayerInfo();
+        setCurrentIndex(0);
+
+    }
+
+    else
+    {
+        // afficher un message en dessous du boutton
+        // "la mise à jour n'a pas pu être effectué, vérifiez les informations ou contacter les developpeurs pour vérifier la base de données
+
+        ui->Informations->setText("La mise à jour n'a pas pu être effectuée, vérifiez les informations ou contacter les developpeurs pour vérifier la base de données");
+    }
 }
 
 void Player_Info::on_NumeroCheckBox_clicked(bool checked)
@@ -275,4 +311,39 @@ void Player_Info::on_GoalsCheckBox_clicked(bool checked)
 void Player_Info::on_FirstNameCheckBox_clicked(bool checked)
 {
     ui->PlayerFirstNameEdit->setEnabled(checked);
+}
+
+void Player_Info::on_Player_Info_currentChanged(int index)
+{
+    if (index==1)
+    {
+        setAttributsEditable(false);
+        ui->PwLineEdit->clear();
+        ui->Informations->clear();
+    }
+
+    if (index==0)
+    {
+        // rien de spécial
+    }
+}
+
+void Player_Info::updatePlayerInfo()
+{
+    // on récupère les informations que l'utilisateur vient d'entrer sur la page de modif et on les affiche sur la page d'informations
+    ui->PlayerName->setText(ui->PlayerNameEdit->text());
+    if (ui->FirstNameCheckBox->isChecked())
+        modifiePrenom(QVariant(ui->PlayerFirstNameEdit->text()));
+    if (ui->NumeroCheckBox->isChecked())
+        modifieNumero(QVariant(ui->PlayerNumberEdit->value()));
+    if (ui->BirthDateCheckBox->isChecked())
+        modifieDateNaissance(QVariant(ui->PlayerBirthDateEdit->date()));
+    if (ui->PositionCheckBox->isChecked())
+        modifiePoste(QVariant(ui->PlayerPositionEdit->currentText()));
+    if (ui->YearArrivalCheckBox->isChecked())
+        modifieAnneeArrivee(QVariant(ui->PlayerYearArrivalEdit->value()));
+    if (ui->MatchsCheckBox->isChecked())
+        modifieNbMatchs(QVariant(ui->PlayerMatchsPlayedEdit->value()));
+    if(ui->GoalsCheckBox->isChecked())
+        modifieNbButs(QVariant(ui->PlayerGoalsEdit->value()));
 }

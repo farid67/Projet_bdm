@@ -24,6 +24,7 @@ private:
     // util surtout pour les modifications
     int playerId;
     void setAttributsEditable(bool b);
+    void updatePlayerInfo();
 
 public slots:
     void modifieNom(const QString& nom);
@@ -50,6 +51,7 @@ private slots:
     void on_MatchsCheckBox_clicked(bool checked);
     void on_GoalsCheckBox_clicked(bool checked);
     void on_FirstNameCheckBox_clicked(bool checked);
+    void on_Player_Info_currentChanged(int index);
 };
 
 #endif // PLAYER_INFO_H

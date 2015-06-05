@@ -10,6 +10,7 @@ ImageInfoWindow::ImageInfoWindow(DatabaseManager *db,QWidget *parent) :
     this->db = db;
     ui->PlayerList->clear();
     player_window = new Player_Info(db); // passer le databaseManager en argument pour pouvoir faire des requêtes directement sur la base
+    addPlayer_window = new AddPlayerWindow(db); // comme pour la ligne du dessus
 
 
     connect(this,SIGNAL(playerClicked(const QString&)),this,SLOT(openPlayerInfo(const QString&)));
@@ -28,6 +29,16 @@ ImageInfoWindow::ImageInfoWindow(DatabaseManager *db,QWidget *parent) :
     // connection pour communiquer l'identifiant du joueur à la fenêtre player_info
     connect(this,SIGNAL(playerId(int)),player_window,SLOT(getPlayerId(int)));
 
+
+    // connection permettant d'ouvrir la fênetre d'ajout de joueurs lors d'un clic sur "Add player to this Image"
+    connect(ui->add_player_image,SIGNAL(clicked()),this,SLOT(openAddPlayer()));
+
+    connect(this,SIGNAL(currentUrl(QString)),addPlayer_window,SLOT(getUrl(QString)));
+
+    // ajouter un connect pour que la modification du contenu des joueurs de l'image dans AddPlayer soit affiché dans cette fenêtre
+
+    // -> A FAIRE
+    connect(addPlayer_window,SIGNAL(setPlayers(QStringList)),this,SLOT(updatePlayers(QStringList)));
 }
 
 ImageInfoWindow::~ImageInfoWindow()
@@ -41,6 +52,12 @@ void ImageInfoWindow::urlModif(const QString& url)
     ui->ImageUrl_label->setText(url);
 }
 
+
+void ImageInfoWindow::updatePlayers(const QStringList &players)
+{
+    ui->PlayerList->clear();
+    ui->PlayerList->addItems(players);
+}
 
 void ImageInfoWindow::openPlayerInfo(const QString &player_name)
 {
@@ -67,6 +84,13 @@ void ImageInfoWindow::openPlayerInfo(const QString &player_name)
     player_window->show();
 }
 
+
+void ImageInfoWindow::openAddPlayer()
+{
+    emit (currentUrl(ui->ImageUrl_label->text())); // on envoie ensuite l'url de la photo courante à la classe AddPLayerWindow
+    addPlayer_window->show();
+}
+
 // on passe l'url en argument, et on cherche tous les joueurs appartenant à la photo
 void ImageInfoWindow::insertPlayerItem(const QString& url)
 {
@@ -79,4 +103,13 @@ void ImageInfoWindow::insertPlayerItem(const QString& url)
 void ImageInfoWindow::on_PlayerList_itemDoubleClicked(QListWidgetItem *item)
 {
     emit (playerClicked(item->text()));
+}
+
+void ImageInfoWindow::on_add_player_image_clicked()
+{
+    // ajout d'un joueur à l'image -> ouverture d'une fenetre permettant d'ajouter un joueur à l'image , avec édition d'informations
+    // à faire
+
+    // nouvelle fenêtre ui avec la même forme que celle des informations sur un joueur mais un bouton de confirmation qui permet d'ajouter un joueur sur la photo
+
 }
