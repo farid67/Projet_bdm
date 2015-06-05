@@ -422,8 +422,6 @@ void MainWindow::on_SearchNumber_clicked()
     filters << "*.png" << "*.jpg" << "*.bmp" << "*.ppm";
     QFileInfoList fileInfoList = dir->entryInfoList(filters, QDir::Files|QDir::NoDotAndDotDot);
 
-
-
     QFileInfoList::iterator it;
 
     QStringList* url_founded = new QStringList();
@@ -457,19 +455,27 @@ void MainWindow::on_SearchNumber_clicked()
               line.replace("/","1");
               line.replace("|","1");
               line.replace("_","1");
+              line.replace("z","2");
+              line.replace("Z","2");
+              line.replace("h","4");
+              line.replace("H","4");
+              line.replace("s","5");
+              line.replace("S","5");
+              line.replace("G","6");
+              line.replace("B","8");
+              line.replace("o","0");
+              line.replace("O","0");
               std::cout << line.toStdString() << std::endl;
               if (line.toInt() == ui->CurrentNumber->value())
               {
                   // ajout à la liste des images à afficher
                   url_founded->append((*it).absoluteFilePath());
-
               }
             }
             f.close();
-
         }
 
-        system ("rm *.ppm out.txt");
+        system ("rm ero.ppm dil.ppm dila.ppm copy.ppm final.ppm out.txt");
 
 
 

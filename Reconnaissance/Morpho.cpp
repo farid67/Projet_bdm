@@ -28,7 +28,7 @@ float abs_c (float x)
 
 CImg<float> SE(13,13,1,1,0);
 
-void SE_set()
+void SE_set() // élément structurant
 {
 	const float white[] = {255.0};
 	const float black[] = {0.0};
@@ -140,7 +140,7 @@ int main(int argc,char **argv)
 	{
 		for (int j = 6; j <= height-6; ++j)
 		{
-			if( abs_c(copy(i,j,0)) /*< eps && abs_c(copy(i-6,j,0)) < eps && abs_c(copy(i+6,j,0)) < eps && abs_c(copy(i,j-6,0)) < eps && abs_c(copy(i,j+6,0)) < eps */)
+			if( abs_c(copy(i,j,0)))
 			{
 				for (int k = i-6; k <= i+6; ++k)
 				{
